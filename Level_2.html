@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Specialization Discovery – Badya University</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=DM+Sans:wght@300;400;500;600&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#06101e;--panel:#0e1c30;--card:#ffffff;--card-t:#0f172a;
+  --teal:#06b6d4;--teal-d:#0891b2;--teal-l:#ecfeff;
+  --muted:#6b8098;--white:#e8f0f8;--success:#10b981;--radius:18px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);min-height:100vh;color:var(--white);overflow-x:hidden}
+body::before{content:'';position:fixed;top:-200px;left:-200px;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(6,182,212,.07) 0%,transparent 65%);pointer-events:none}
+[dir="rtl"] body{font-family:'Cairo',sans-serif}
+[dir="rtl"] .hero-t,[dir="rtl"] .sh-title,[dir="rtl"] .rspec{font-family:'Cairo',sans-serif}
+[dir="rtl"] .excard{border-left:none;border-right:4px solid var(--teal);border-radius:var(--radius) 0 0 var(--radius)}
+[dir="rtl"] .pbar-lbl{text-align:left}
+[dir="rtl"] .iitem{flex-direction:row-reverse;text-align:right}
+[dir="rtl"] .hero-d,[dir="rtl"] .sh-sub,[dir="rtl"] .excard p{text-align:right}
+
+.app{max-width:680px;margin:0 auto;padding:0 18px;min-height:100vh;display:flex;flex-direction:column}
+.topbar{padding:18px 0 8px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.uni-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(6,182,212,.1);
+  border:1px solid rgba(6,182,212,.25);border-radius:50px;padding:5px 14px;font-size:11px;
+  color:var(--teal);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.year-tag{font-size:11px;color:var(--muted);border:1px solid rgba(255,255,255,.1);padding:5px 14px;border-radius:50px}
+.lang-btn{font-size:12px;font-weight:700;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);
+  color:var(--white);padding:5px 14px;border-radius:50px;cursor:pointer;transition:all .2s;font-family:inherit}
+.lang-btn:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4)}
+
+.screen{display:none;flex-direction:column;flex:1;padding:14px 0 52px;animation:fup .4s ease}
+.screen.active{display:flex}
+@keyframes fup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes slin{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin:24px 0 10px}
+.hero-t{font-family:'Sora',sans-serif;font-size:clamp(2rem,6vw,2.9rem);line-height:1.15;margin-bottom:16px;font-weight:700}
+.hero-t em{color:var(--teal);font-style:normal}
+.hero-d{font-size:15px;color:var(--muted);line-height:1.75;max-width:540px;margin-bottom:28px}
+.specs{background:var(--panel);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);padding:20px;margin-bottom:24px}
+.spec-row{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--muted);padding:6px 0}
+.spec-row:not(:last-child){border-bottom:1px solid rgba(255,255,255,.04)}
+.spec-row strong{color:var(--white)}
+.spec-icon{font-size:18px;width:28px;text-align:center;flex-shrink:0}
+[dir="rtl"] .spec-row{flex-direction:row-reverse}
+.tracks{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:28px}
+.track-pill{background:var(--panel);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:14px;text-align:center}
+.track-pill .tp{font-size:18px;display:block;margin-bottom:4px}
+.track-pill span{font-size:12px;color:var(--muted);font-weight:500;line-height:1.3;display:block}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 26px;
+  border-radius:50px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;
+  border:none;transition:all .22s cubic-bezier(.4,0,.2,1);line-height:1}
+[dir="rtl"] .btn{font-family:'Cairo',sans-serif}
+.btn-t{background:var(--teal);color:#000}
+.btn-t:hover{background:var(--teal-d);transform:translateY(-2px);box-shadow:0 8px 24px rgba(6,182,212,.3)}
+.btn-o{background:transparent;color:var(--muted);border:1.5px solid rgba(255,255,255,.12)}
+.btn-o:hover{border-color:rgba(255,255,255,.35);color:var(--white)}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+.btn-w{width:100%}
+
+.card{background:var(--card);color:var(--card-t);border-radius:var(--radius);padding:24px;margin-bottom:12px;
+  box-shadow:0 2px 20px rgba(0,0,0,.2)}
+.fg{margin-bottom:15px}
+.fl{display:block;font-size:10px;font-weight:700;color:#94a3b8;letter-spacing:.07em;text-transform:uppercase;margin-bottom:5px}
+.fi{width:100%;padding:12px 15px;border:2px solid #e2e8f0;border-radius:12px;font-family:'DM Sans',sans-serif;
+  font-size:15px;color:var(--card-t);outline:none;background:#f8fafc;transition:border-color .2s}
+[dir="rtl"] .fi{font-family:'Cairo',sans-serif;text-align:right}
+.fi:focus{border-color:var(--teal);background:#fff;box-shadow:0 0 0 3px rgba(6,182,212,.1)}
+.fi::placeholder{color:#cbd5e1}
+
+.ilist{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:26px}
+.iitem{display:flex;gap:13px;align-items:flex-start;font-size:14px;color:#8899b0;line-height:1.65}
+.iicon{width:32px;height:32px;background:rgba(6,182,212,.12);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+
+.pbar-wrap{background:var(--panel);border:1px solid rgba(255,255,255,.05);border-radius:14px;
+  padding:13px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px}
+.pbar-track{flex:1;height:7px;background:rgba(255,255,255,.08);border-radius:50px;overflow:hidden}
+.pbar-fill{height:100%;background:linear-gradient(90deg,var(--teal-d),var(--teal));border-radius:50px;
+  transition:width .5s cubic-bezier(.4,0,.2,1);min-width:3px}
+.pbar-lbl{font-size:12px;color:var(--muted);white-space:nowrap;font-weight:600;min-width:50px;text-align:right}
+.pdots{display:flex;gap:5px;justify-content:center;margin-bottom:10px}
+.pdot{height:5px;border-radius:50px;background:rgba(255,255,255,.13);transition:all .3s;width:5px}
+.pdot.done{background:rgba(6,182,212,.35)}
+.pdot.active{background:var(--teal);width:18px}
+
+.qcard{background:var(--card);color:var(--card-t);border-radius:var(--radius);padding:22px;margin-bottom:10px;animation:slin .28s ease}
+.qmeta{font-size:11px;font-weight:700;color:var(--teal-d);text-transform:uppercase;letter-spacing:.08em;margin-bottom:9px}
+.qtext{font-size:17px;font-weight:500;line-height:1.6;color:#0f172a;margin-bottom:20px}
+[dir="rtl"] .qtext{text-align:right;font-family:'Cairo',sans-serif}
+.lkwrap{display:flex;flex-direction:column;gap:7px}
+.lkends{display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;padding:0 2px;margin-bottom:3px}
+.lkrow{display:flex;gap:5px}
+.lopt{flex:1}
+.lopt input{display:none}
+.lopt label{display:flex;flex-direction:column;align-items:center;gap:3px;padding:11px 4px;
+  border-radius:10px;border:2px solid #e2e8f0;cursor:pointer;transition:all .2s;background:#f8fafc}
+.lopt label .ln{font-size:16px;font-weight:700;color:#94a3b8;line-height:1}
+.lopt label .lt{font-size:9px;color:#94a3b8;text-align:center;line-height:1.2}
+.lopt input:checked+label{border-color:var(--teal);background:var(--teal-l)}
+.lopt input:checked+label .ln,.lopt input:checked+label .lt{color:var(--teal-d)}
+.lopt label:hover{border-color:#d1d5db;background:#f1f5f9}
+.lopt input:checked+label:hover{border-color:var(--teal);background:var(--teal-l)}
+.qnav{display:flex;gap:10px;margin-top:4px}
+.qnav .btn{flex:1}
+
+.rhero{background:linear-gradient(145deg,#0e1c30 0%,#06101e 100%);
+  border:1px solid rgba(6,182,212,.3);border-radius:var(--radius);padding:28px;text-align:center;margin-bottom:12px}
+.rlbl{display:inline-block;background:var(--teal);color:#000;border-radius:50px;
+  padding:5px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+.rspec{font-family:'Sora',sans-serif;font-size:clamp(1.4rem,5vw,2rem);color:var(--white);margin-bottom:7px;line-height:1.2}
+.rtag{font-size:13px;color:var(--muted);font-style:italic;margin-bottom:12px}
+.cconf{display:flex;align-items:center;justify-content:center;gap:7px;font-size:13px;color:var(--muted)}
+.cbadge{padding:3px 13px;border-radius:50px;font-size:12px;font-weight:700}
+.ch{background:rgba(16,185,129,.15);color:#10b981}
+.cm{background:rgba(6,182,212,.15);color:var(--teal)}
+.cl{background:rgba(107,128,152,.15);color:var(--muted)}
+.srow{margin-bottom:11px}
+.shdr{display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:5px;color:var(--muted)}
+.sval{color:var(--teal);font-weight:700}
+.strk{height:9px;background:rgba(255,255,255,.07);border-radius:50px;overflow:hidden}
+.sfill{height:100%;border-radius:50px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.s0{background:linear-gradient(90deg,#ec4899,#f9a8d4)}
+.s1{background:linear-gradient(90deg,#6366f1,#a5b4fc)}
+.s2{background:linear-gradient(90deg,#10b981,#6ee7b7)}
+.s3{background:linear-gradient(90deg,#06b6d4,#67e8f9)}
+.radar-wrap{display:flex;justify-content:center;margin:8px 0}
+.radar-wrap svg{width:250px;height:250px}
+.dimg{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:8px;margin-top:10px}
+.dcard{background:var(--panel);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:13px 8px;text-align:center}
+.dscore{font-family:'Sora',sans-serif;font-size:20px;color:var(--teal);display:block;line-height:1}
+[dir="rtl"] .dscore{font-family:'Cairo',sans-serif}
+.dname{font-size:9px;color:var(--muted);margin-top:5px;text-transform:uppercase;letter-spacing:.04em;line-height:1.3;display:block}
+[dir="rtl"] .dname{font-size:10px;letter-spacing:0;text-transform:none}
+.excard{background:var(--panel);border-left:4px solid var(--teal);
+  border-radius:0 var(--radius) var(--radius) 0;padding:18px 20px;margin-bottom:12px}
+.excard p{font-size:14px;line-height:1.85;color:#8899b0}
+.alts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:12px}
+.alt-item{background:var(--card);color:var(--card-t);border-radius:14px;padding:14px;
+  display:flex;align-items:center;justify-content:space-between;gap:8px}
+.alt-item .ai p{font-size:13px;font-weight:600;color:#0f172a;margin-bottom:2px}
+.alt-item .ai span{font-size:11px;color:#64748b}
+.alt-rank{background:#f1f5f9;color:#64748b;padding:3px 10px;border-radius:50px;font-size:11px;font-weight:700;white-space:nowrap}
+.alt-rank.r2{background:#eff6ff;color:#3b82f6}
+.alt-rank.r3{background:#f0fdf4;color:#16a34a}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.tag{background:#f1f5f9;color:#334155;padding:5px 13px;border-radius:50px;font-size:12px;font-weight:500}
+.slbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal-d);margin-bottom:7px;display:block}
+[dir="rtl"] .slbl{text-align:right;letter-spacing:0;font-size:11px;text-transform:none}
+.smsg{text-align:center;font-size:13px;color:var(--muted);padding:12px;margin-bottom:6px}
+.smsg.ok{color:var(--success)}.smsg.err{color:#f87171}
+.sh-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);display:block;margin-bottom:5px}
+[dir="rtl"] .sh-lbl{text-align:right;letter-spacing:0;font-size:12px;text-transform:none}
+.sh-title{font-family:'Sora',sans-serif;font-size:1.4rem;margin-bottom:4px}
+[dir="rtl"] .sh-title{text-align:right}
+@media(max-width:480px){
+  .tracks{grid-template-columns:1fr 1fr}
+  .lopt label .lt{display:none}
+  .alts-grid{grid-template-columns:1fr}
+}
+@media print{
+  body{background:#fff;color:#000}
+  .btn,.qnav,.topbar,.pdots,.pbar-wrap{display:none!important}
+  .screen:not(.active){display:none}
+  .rhero,.excard{border:1px solid #ccc;background:#f9f9f9}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div id="topbar" class="topbar"></div>
+  <section id="s-welcome" class="screen active"></section>
+  <section id="s-info" class="screen"></section>
+  <section id="s-instr" class="screen"></section>
+  <section id="s-qs" class="screen"></section>
+  <section id="s-results" class="screen"><div id="rcont"></div></section>
+</div>
+<script>
+/* Google Sheets URL — paste your Apps Script Web App URL here */
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzQG7KCCxZpXFQAULEoIgrUZdNGFxKHQ9KnrQKkaDxauSYrgmWWOgcEc-tffYmxB_Eb/exec';
+/* Apps Script code is in the separate apps-script.gs file */
+
+let LANG = 'en', curScreen = 's-welcome', lastScores = null, submitStatus = null;
+
+const TR = {
+  en: {
+    uni_name: 'Badya University · Business Administration',
+    year_tag: 'Year 2 · Specialization',
+    lang_switch: 'العربية',
+    eyebrow: 'Specialization Discovery Assessment',
+    hero_html: 'Choose Your<br><em>Specialization</em>',
+    hero_desc: 'This assessment helps you find the best specialization in Business Administration. Answer honestly and you will get a ranked recommendation for all 4 tracks.',
+    spec1: '25 questions — takes about 10 minutes',
+    spec2: 'Based on 5 personality dimensions',
+    spec3: 'All 4 specializations ranked for you',
+    spec4: 'Personalized explanation + career options',
+    begin: 'Start Assessment →',
+    step1: 'Step 1 of 3', info_title: 'Your Details',
+    info_sub: 'This information is kept private and used only for your academic report.',
+    label_name: 'Full Name', label_email: 'University Email', label_sid: 'Student ID',
+    ph_name: 'Ahmed Mohamed Mahmoud', ph_email: 's123456@badyauni.edu.eg', ph_sid: '20250001',
+    continue: 'Continue →', back: '← Back',
+    fill_all: 'Please fill in all three fields before continuing.',
+    step2: 'Step 2 of 3', instr_title: 'How It Works',
+    instr_sub: 'Read this before you start.',
+    i1: 'Answer based on how you <strong style="color:#e8f0f8">really</strong> feel — not what sounds impressive. There are no right or wrong answers.',
+    i2: 'Use the <strong style="color:#e8f0f8">1–5 scale</strong>: 1 = Strongly Disagree, 5 = Strongly Agree.',
+    i3: 'Go with your <strong style="color:#e8f0f8">first instinct</strong>. The test takes about 10 minutes.',
+    i4: 'You will see your <strong style="color:#e8f0f8">top specialization</strong> with confidence level, plus all 4 tracks ranked.',
+    i5: 'Your answers are saved to help the faculty give you better guidance.',
+    ready: "I'm Ready — Let's Go 🚀",
+    q_label: 'Question', q_of: 'of',
+    sd: 'Strongly Disagree', sa: 'Strongly Agree',
+    likert: ['SD', 'D', 'N', 'A', 'SA'],
+    back_q: '← Back', next_q: 'Next →', see_results: '🎯 See My Results',
+    res_badge: '✨ Your Top Specialization', confidence: 'Confidence:',
+    high: 'High', moderate: 'Moderate', low: 'Low',
+    ranked_title: 'All 4 Specializations Ranked',
+    profile: 'Your Profile', why: 'Why This Fits You',
+    courses_lbl: 'Key Courses', careers_lbl: 'Career Options',
+    alt_lbl: 'Other Good Matches',
+    saving: '📡 Saving your results…',
+    not_configured: 'ℹ️ Sheets URL not set. Add your Apps Script URL to enable saving.',
+    saved: '✅ Results saved. Good luck!',
+    error: '⚠️ Could not save. Your result is still shown above.',
+    print: '🖨️ Save / Print as PDF', retake: '↩ Retake',
+    footer: 'Faculty of Business Administration & Applied Economics · Badya University',
+    dim: { CR: 'Creative', LS: 'Leadership', FQ: 'Finance', TA: 'Technology', SC: 'Social' },
+    specs:[
+      {icon:'❓', text:'25 questions — takes about 10 minutes'},
+      {icon:'🧪', text:'Based on 5 personality dimensions'},
+      {icon:'📊', text:'All 4 specializations ranked for you'},
+      {icon:'💡', text:'Personalized explanation + career options'}
+    ],
+    specializations: [
+      { key: 'MKT', name: 'Marketing', tagline: 'Create · Connect · Influence', col: '#ec4899',
+        desc: 'You are creative, a strong communicator, and you understand people well. Marketing is a great fit — you will design campaigns, build brands, and connect companies to their customers.',
+        courses: ['Consumer Behavior', 'Digital Marketing', 'Brand Management', 'Advertising & Promotion', 'Marketing Research', 'Sales Management'],
+        careers: ['Brand Manager', 'Digital Marketing Specialist', 'Market Research Analyst', 'Advertising Creative', 'Customer Experience Lead', 'Social Media Strategist'] },
+      { key: 'BA', name: 'Business Administration', tagline: 'Lead · Strategize · Transform', col: '#6366f1',
+        desc: 'You are a natural leader who thinks strategically and enjoys working with people. Business Administration will prepare you to manage teams, drive change, and shape the direction of organizations.',
+        courses: ['Strategic Management', 'Leadership & Change', 'Corporate Governance', 'Business Ethics', 'Project Management', 'Organizational Design'],
+        careers: ['General Manager', 'Strategy Consultant', 'Business Development Lead', 'Operations Director', 'Corporate Affairs Manager', 'Startup Founder'] },
+      { key: 'FIN', name: 'Finance & Investment', tagline: 'Analyze · Invest · Grow', col: '#10b981',
+        desc: 'You enjoy numbers, financial analysis, and thinking about risk and return. Finance & Investment will teach you to value companies, manage investment portfolios, and make data-driven financial decisions.',
+        courses: ['Financial Markets', 'Investment Analysis', 'Portfolio Management', 'Risk Management', 'Financial Modeling', 'Derivatives & Alternatives'],
+        careers: ['Investment Analyst', 'Financial Advisor', 'Risk Manager', 'Portfolio Manager', 'Corporate Finance Associate', 'FinTech Analyst'] },
+      { key: 'BTM', name: 'Business Technology Management', tagline: 'Digitize · Analyze · Transform', col: '#06b6d4',
+        desc: 'You are interested in technology and how it changes business. Business Technology Management will prepare you to lead digital transformation, use data for decisions, and bridge the gap between business and technology.',
+        courses: ['Digital Transformation', 'ERP Systems', 'Business Intelligence', 'IT Governance', 'Data Analytics', 'E-Commerce Strategy'],
+        careers: ['Digital Transformation Lead', 'Business Analyst', 'ERP Consultant', 'Data Analytics Manager', 'IT Strategy Director', 'Product Manager'] }
+    ],
+    questions: [
+      "I enjoy creating campaigns or ideas to grab people's attention.",
+      "In group work, I naturally take the lead and help guide the team.",
+      "Looking at financial numbers or investment options genuinely excites me.",
+      "I enjoy learning how technology can improve the way businesses work.",
+      "I am good at reading people and adjusting how I talk based on who I am with.",
+      "A good brand story can be more powerful than a long data report.",
+      "I like thinking about where a company should be in 5 or 10 years.",
+      "When I look at a company, I first think about its profits and financial value.",
+      "I would enjoy working with enterprise tech systems or digital platforms.",
+      "I feel most energized when working closely with a team.",
+      "I prefer logical, fact-based arguments over creative or emotional ones.",
+      "Setting a clear direction and inspiring others to follow it is something I love.",
+      "Financial markets, interest rates, and investment returns genuinely fascinate me.",
+      "I regularly look for new digital tools and think about how to use them.",
+      "Building long-term relationships with clients or partners comes naturally to me.",
+      "I care about how a brand looks and feels — it is not just about the product.",
+      "I prefer working alone on analytical problems rather than leading a team.",
+      "I am comfortable taking financial risks when the numbers support the decision.",
+      "I believe data and business intelligence are the most important tools for any company.",
+      "I enjoy persuading others — in meetings, presentations, or everyday talk.",
+      "I think carefully about how a product's design and message affect how people see it.",
+      "I often think about how companies can be restructured to become more competitive.",
+      "I would enjoy building financial models or forecasting a company's performance.",
+      "I find people-focused, non-technical roles more natural than tech-heavy ones.",
+      "Understanding human behavior is the most important key to business success."
+    ]
+  },
+
+  ar: {
+    uni_name: 'Badya University · Business Administration',
+    year_tag: 'Year 2 · اختيار التخصص',
+    lang_switch: 'English',
+    eyebrow: 'اختبار اكتشاف التخصص',
+    hero_html: 'اختر<br><em>تخصصك</em>',
+    hero_desc: 'هذا الاختبار يساعدك على إيجاد أفضل تخصص في Business Administration. أجب بصدق وستحصل على توصية مع ترتيب كل التخصصات الأربعة.',
+    spec1: '25 سؤالاً — يستغرق حوالي 10 دقائق',
+    spec2: 'مبني على 5 أبعاد شخصية',
+    spec3: 'ترتيب كامل للتخصصات الأربعة',
+    spec4: 'شرح مخصص لك + خيارات مهنية',
+    begin: 'ابدأ الاختبار ←',
+    step1: 'الخطوة 1 من 3', info_title: 'بياناتك',
+    info_sub: 'بياناتك سرية وتُستخدم فقط في تقريرك الأكاديمي.',
+    label_name: 'الاسم الكامل', label_email: 'البريد الجامعي', label_sid: 'الرقم الجامعي',
+    ph_name: 'أحمد محمد محمود', ph_email: 's123456@badyauni.edu.eg', ph_sid: '20250001',
+    continue: 'متابعة ←', back: 'رجوع →',
+    fill_all: 'يرجى ملء الحقول الثلاثة قبل المتابعة.',
+    step2: 'الخطوة 2 من 3', instr_title: 'كيف يعمل الاختبار',
+    instr_sub: 'اقرأ هذا قبل أن تبدأ.',
+    i1: 'أجب بناءً على ما تشعر به <strong style="color:#e8f0f8">فعلاً</strong> — وليس ما يبدو مثيراً للإعجاب. لا توجد إجابة صح أو غلط.',
+    i2: 'استخدم <strong style="color:#e8f0f8">المقياس من 1 إلى 5</strong>: 1 = لا أوافق بشدة، 5 = أوافق بشدة.',
+    i3: 'اتبع <strong style="color:#e8f0f8">أول إحساسك</strong>. الاختبار يأخذ حوالي 10 دقائق.',
+    i4: 'ستظهر لك <strong style="color:#e8f0f8">أعلى تخصص توافقاً</strong> ومستوى الثقة وترتيب كل التخصصات الأربعة.',
+    i5: 'إجاباتك تُحفظ لمساعدة الكلية على تقديم إرشاد أكاديمي أفضل لك.',
+    ready: 'أنا مستعد — هيا بنا 🚀',
+    q_label: 'السؤال', q_of: 'من',
+    sd: 'لا أوافق بشدة', sa: 'أوافق بشدة',
+    likert: ['بشدة لا', 'لا', 'محايد', 'نعم', 'تماماً'],
+    back_q: 'رجوع →', next_q: '← التالي', see_results: '🎯 اعرض نتائجي',
+    res_badge: '✨ التخصص الأنسب لك', confidence: 'مستوى الثقة:',
+    high: 'عالٍ', moderate: 'متوسط', low: 'منخفض',
+    ranked_title: 'ترتيب التخصصات الأربعة',
+    profile: 'ملفك الشخصي', why: 'لماذا يناسبك هذا التخصص',
+    courses_lbl: 'مقررات رئيسية', careers_lbl: 'خيارات مهنية',
+    alt_lbl: 'تخصصات بديلة جيدة',
+    saving: '📡 جارٍ حفظ نتائجك…',
+    not_configured: 'ℹ️ لم يتم ضبط رابط Sheets. أضف رابط Apps Script لتفعيل الحفظ.',
+    saved: '✅ تم حفظ النتائج. بالتوفيق!',
+    error: '⚠️ لم يتم الحفظ. نتيجتك تظهر أعلاه.',
+    print: '🖨️ حفظ / طباعة كـ PDF', retake: '↩ إعادة الاختبار',
+    footer: 'Faculty of Business Administration & Applied Economics · Badya University',
+    dim: { CR: 'إبداعي', LS: 'قيادي', FQ: 'مالي', TA: 'تقني', SC: 'اجتماعي' },
+    /* Specialization names stay English; taglines and desc translated */
+    specializations: [
+      { key: 'MKT', name: 'Marketing', tagline: 'أبدع · تواصل · أثّر', col: '#ec4899',
+        desc: 'أنت مبدع وتتواصل بقوة وتفهم الناس جيداً. Marketing مناسب لك جداً — ستصمم حملات وتبني علامات تجارية وتربط الشركات بعملائها.',
+        courses: ['Consumer Behavior', 'Digital Marketing', 'Brand Management', 'Advertising & Promotion', 'Marketing Research', 'Sales Management'],
+        careers: ['Brand Manager', 'Digital Marketing Specialist', 'Market Research Analyst', 'Advertising Creative', 'Customer Experience Lead', 'Social Media Strategist'] },
+      { key: 'BA', name: 'Business Administration', tagline: 'قُد · ضع الاستراتيجية · غيّر', col: '#6366f1',
+        desc: 'أنت قائد بالفطرة وتفكر باستراتيجية وتستمتع بالعمل مع الناس. Business Administration سيُعدّك لإدارة الفرق وقيادة التغيير وتحديد اتجاه المنظمات.',
+        courses: ['Strategic Management', 'Leadership & Change', 'Corporate Governance', 'Business Ethics', 'Project Management', 'Organizational Design'],
+        careers: ['General Manager', 'Strategy Consultant', 'Business Development Lead', 'Operations Director', 'Corporate Affairs Manager', 'Startup Founder'] },
+      { key: 'FIN', name: 'Finance & Investment', tagline: 'حلّل · استثمر · انمُ', col: '#10b981',
+        desc: 'تستمتع بالأرقام والتحليل المالي والتفكير في المخاطر والعوائد. Finance & Investment سيعلمك تقييم الشركات وإدارة المحافظ الاستثمارية واتخاذ قرارات مالية مبنية على البيانات.',
+        courses: ['Financial Markets', 'Investment Analysis', 'Portfolio Management', 'Risk Management', 'Financial Modeling', 'Derivatives & Alternatives'],
+        careers: ['Investment Analyst', 'Financial Advisor', 'Risk Manager', 'Portfolio Manager', 'Corporate Finance Associate', 'FinTech Analyst'] },
+      { key: 'BTM', name: 'Business Technology Management', tagline: 'رقمنة · حلّل · حوّل', col: '#06b6d4',
+        desc: 'أنت مهتم بالتكنولوجيا وكيف تُغيّر الأعمال. Business Technology Management سيُعدّك لقيادة التحول الرقمي واستخدام البيانات في اتخاذ القرارات وسد الفجوة بين الأعمال والتكنولوجيا.',
+        courses: ['Digital Transformation', 'ERP Systems', 'Business Intelligence', 'IT Governance', 'Data Analytics', 'E-Commerce Strategy'],
+        careers: ['Digital Transformation Lead', 'Business Analyst', 'ERP Consultant', 'Data Analytics Manager', 'IT Strategy Director', 'Product Manager'] }
+    ],
+    questions: [
+      "أستمتع بابتكار حملات أو أفكار لجذب انتباه الناس.",
+      "في العمل الجماعي، أتولى القيادة بشكل طبيعي وأساعد في توجيه الفريق.",
+      "النظر في الأرقام المالية أو خيارات الاستثمار يُثيرني حقاً.",
+      "أستمتع بتعلم كيف يمكن للتكنولوجيا أن تُحسّن طريقة عمل الشركات.",
+      "أنا جيد في قراءة الناس وتعديل أسلوب حديثي بناءً على من أكون معه.",
+      "قصة علامة تجارية جيدة قد تكون أقوى من تقرير بيانات طويل.",
+      "أحب التفكير في أين ينبغي أن تكون الشركة بعد 5 أو 10 سنوات.",
+      "عند النظر إلى شركة، أفكر أولاً في أرباحها وقيمتها المالية.",
+      "سأستمتع بالعمل مع أنظمة التكنولوجيا المؤسسية أو المنصات الرقمية.",
+      "أشعر بأكبر قدر من الحيوية عند العمل عن قرب مع فريق.",
+      "أفضل الحجج المنطقية والقائمة على الحقائق على المناشدات الإبداعية أو العاطفية.",
+      "تحديد اتجاه واضح وإلهام الآخرين للمتابعة شيء أحبه.",
+      "الأسواق المالية وأسعار الفائدة وعوائد الاستثمار تأسرني فعلاً.",
+      "أبحث بانتظام عن أدوات رقمية جديدة وأفكر في كيفية استخدامها.",
+      "بناء علاقات طويلة الأمد مع العملاء أو الشركاء يأتي بشكل طبيعي لي.",
+      "أهتم بكيف تبدو العلامة التجارية وتُحسّ — الأمر لا يتعلق بالمنتج فقط.",
+      "أفضل العمل بمفردي على مشاكل تحليلية بدلاً من قيادة فريق.",
+      "أنا مرتاح لتحمل مخاطر مالية عندما تدعم الأرقام القرار.",
+      "أعتقد أن البيانات وذكاء الأعمال هي أهم الأدوات لأي شركة.",
+      "أستمتع بإقناع الآخرين — في الاجتماعات أو العروض أو الحديث اليومي.",
+      "أفكر بعناية في كيف يؤثر تصميم المنتج ورسالته على نظرة الناس إليه.",
+      "كثيراً ما أفكر في كيف يمكن إعادة هيكلة الشركات لتصبح أكثر تنافسية.",
+      "سأستمتع ببناء نماذج مالية أو توقع أداء الشركة.",
+      "أجد الأدوار المتعلقة بالناس وغير التقنية أكثر طبيعية من الأدوار التقنية.",
+      "فهم السلوك البشري هو المفتاح الأهم للنجاح في الأعمال."
+    ]
+  }
+};
+
+function t(k){ return (TR[LANG]&&TR[LANG][k]!==undefined)?TR[LANG][k]:TR.en[k]; }
+
+function toggleLang(){
+  LANG = LANG==='en'?'ar':'en';
+  const h=document.documentElement; h.lang=LANG; h.dir=LANG==='ar'?'rtl':'ltr';
+  renderTopbar();
+  if(curScreen==='s-welcome') renderWelcome();
+  else if(curScreen==='s-info') renderInfo();
+  else if(curScreen==='s-instr') renderInstr();
+  else if(curScreen==='s-qs'){rpage();ui();}
+  else if(curScreen==='s-results'&&lastScores) renderResults(lastScores.ds,lastScores.os,false);
+}
+
+function renderTopbar(){
+  document.getElementById('topbar').innerHTML=`
+    <span class="uni-badge">🎓 ${t('uni_name')}</span>
+    <div class="topbar-right">
+      <span class="year-tag">${t('year_tag')}</span>
+      <button class="lang-btn" onclick="toggleLang()">${t('lang_switch')}</button>
+    </div>`;
+}
+
+function renderWelcome(){
+  document.getElementById('s-welcome').innerHTML=`
+    <p class="eyebrow">${t('eyebrow')}</p>
+    <h1 class="hero-t">${t('hero_html')}</h1>
+    <p class="hero-d">${t('hero_desc')}</p>
+    <div class="tracks">
+      <div class="track-pill"><span class="tp">📢</span><span>Marketing</span></div>
+      <div class="track-pill"><span class="tp">🏛️</span><span>Business Administration</span></div>
+      <div class="track-pill"><span class="tp">📈</span><span>Finance & Investment</span></div>
+      <div class="track-pill"><span class="tp">💻</span><span>Business Tech. Mgmt</span></div>
+    </div>
+    <div class="specs">
+      ${t('specs').map(s=>`<div class="spec-row"><span class="spec-icon">${s.icon}</span><span>${s.text}</span></div>`).join('')}
+    </div>
+    <button class="btn btn-t btn-w" onclick="show('s-info')">${t('begin')}</button>`;
+}
+
+function renderInfo(){
+  const nv=document.getElementById('iname')?.value||'';
+  const ev=document.getElementById('iemail')?.value||'';
+  const sv=document.getElementById('isid')?.value||'';
+  document.getElementById('s-info').innerHTML=`
+    <div style="margin-top:14px">
+      <span class="sh-lbl">${t('step1')}</span>
+      <h2 class="sh-title">${t('info_title')}</h2>
+      <p class="sh-sub">${t('info_sub')}</p>
+    </div>
+    <div class="card">
+      <div class="fg"><label class="fl" for="iname">${t('label_name')} *</label>
+        <input id="iname" type="text" class="fi" placeholder="${t('ph_name')}"></div>
+      <div class="fg"><label class="fl" for="iemail">${t('label_email')} *</label>
+        <input id="iemail" type="email" class="fi" placeholder="${t('ph_email')}"></div>
+      <div class="fg" style="margin-bottom:4px"><label class="fl" for="isid">${t('label_sid')} *</label>
+        <input id="isid" type="text" class="fi" placeholder="${t('ph_sid')}"></div>
+    </div>
+    <button class="btn btn-t btn-w" onclick="doInfo()" style="margin-bottom:10px">${t('continue')}</button>
+    <button class="btn btn-o btn-w" onclick="show('s-welcome')">${t('back')}</button>`;
+  if(nv) document.getElementById('iname').value=nv;
+  if(ev) document.getElementById('iemail').value=ev;
+  if(sv) document.getElementById('isid').value=sv;
+}
+
+function renderInstr(){
+  document.getElementById('s-instr').innerHTML=`
+    <div style="margin-top:14px">
+      <span class="sh-lbl">${t('step2')}</span>
+      <h2 class="sh-title">${t('instr_title')}</h2>
+      <p class="sh-sub">${t('instr_sub')}</p>
+    </div>
+    <ul class="ilist">
+      <li class="iitem"><div class="iicon">🧠</div><span>${t('i1')}</span></li>
+      <li class="iitem"><div class="iicon">⚖️</div><span>${t('i2')}</span></li>
+      <li class="iitem"><div class="iicon">⚡</div><span>${t('i3')}</span></li>
+      <li class="iitem"><div class="iicon">🏆</div><span>${t('i4')}</span></li>
+      <li class="iitem"><div class="iicon">🔐</div><span>${t('i5')}</span></li>
+    </ul>
+    <button class="btn btn-t btn-w" onclick="startQ()">${t('ready')}</button>`;
+}
+
+function show(id){
+  curScreen=id;
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='s-welcome') renderWelcome();
+  else if(id==='s-info') renderInfo();
+  else if(id==='s-instr') renderInstr();
+}
+
+function doInfo(){
+  const n=document.getElementById('iname').value.trim(),
+        e=document.getElementById('iemail').value.trim(),
+        s=document.getElementById('isid').value.trim();
+  if(!n||!e||!s){alert(t('fill_all'));return;}
+  stu={name:n,email:e,studentId:s}; show('s-instr');
+}
+
+const Qs=[
+  {id:1,d:'CR',r:false},{id:2,d:'LS',r:false},{id:3,d:'FQ',r:false},
+  {id:4,d:'TA',r:false},{id:5,d:'SC',r:false},{id:6,d:'CR',r:false},
+  {id:7,d:'LS',r:false},{id:8,d:'FQ',r:false},{id:9,d:'TA',r:false},
+  {id:10,d:'SC',r:false},{id:11,d:'CR',r:true}, {id:12,d:'LS',r:false},
+  {id:13,d:'FQ',r:false},{id:14,d:'TA',r:false},{id:15,d:'SC',r:false},
+  {id:16,d:'CR',r:false},{id:17,d:'LS',r:true}, {id:18,d:'FQ',r:false},
+  {id:19,d:'TA',r:false},{id:20,d:'SC',r:false},{id:21,d:'CR',r:false},
+  {id:22,d:'LS',r:false},{id:23,d:'FQ',r:false},{id:24,d:'TA',r:true},
+  {id:25,d:'SC',r:false}
+];
+const WTS={
+  MKT:{CR:.35,LS:.10,FQ:.05,TA:.10,SC:.40},
+  BA: {CR:.10,LS:.45,FQ:.10,TA:.05,SC:.30},
+  FIN:{CR:.05,LS:.15,FQ:.50,TA:.20,SC:.10},
+  BTM:{CR:.10,LS:.15,FQ:.20,TA:.50,SC:.05}
+};
+const PG=5, TOTPG=Math.ceil(Qs.length/PG);
+let stu={}, ans={}, pg=0;
+
+function startQ(){
+  pg=0; ans={};
+  document.getElementById('s-qs').innerHTML=`
+    <div class="pbar-wrap"><div class="pbar-track"><div class="pbar-fill" id="pbar" style="width:4%"></div></div>
+      <span class="pbar-lbl" id="pbarlbl">0 / 25</span></div>
+    <div class="pdots" id="pdots"></div>
+    <div id="qcont"></div>
+    <div class="qnav">
+      <button class="btn btn-o" id="bprev" onclick="nav(-1)"></button>
+      <button class="btn btn-t" id="bnext" onclick="nav(1)" disabled></button>
+    </div>`;
+  curScreen='s-qs';
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s-qs').classList.add('active');
+  window.scrollTo(0,0); dots(); rpage();
+}
+
+function dots(){
+  const el=document.getElementById('pdots'); el.innerHTML='';
+  for(let i=0;i<TOTPG;i++){const d=document.createElement('div');
+    d.className='pdot'+(i===pg?' active':i<pg?' done':'');el.appendChild(d);}
+}
+
+function rpage(){
+  const c=document.getElementById('qcont'),st=pg*PG; c.innerHTML='';
+  const qs=t('questions');
+  Qs.slice(st,st+PG).forEach((q,qi)=>{
+    const el=document.createElement('div'); el.className='qcard';
+    el.innerHTML=`<p class="qmeta">${t('q_label')} ${q.id} ${t('q_of')} ${Qs.length}</p>
+      <p class="qtext">${qs[st+qi]}</p>
+      <div class="lkwrap">
+        <div class="lkends"><span>${t('sd')}</span><span>${t('sa')}</span></div>
+        <div class="lkrow">${[1,2,3,4,5].map(v=>`
+          <div class="lopt"><input type="radio" name="q${q.id}" id="q${q.id}v${v}" value="${v}"
+            ${ans[q.id]===v?'checked':''} onchange="rec(${q.id},${v})">
+          <label for="q${q.id}v${v}"><span class="ln">${v}</span>
+            <span class="lt">${t('likert')[v-1]}</span></label></div>`).join('')}
+        </div></div>`;
+    c.appendChild(el);});
+  ui();
+}
+
+function rec(id,v){ans[id]=v;ui();}
+
+function ui(){
+  const st=pg*PG,pq=Qs.slice(st,st+PG),all=pq.every(q=>ans[q.id]!==undefined);
+  const tot=Object.keys(ans).length;
+  document.getElementById('pbar').style.width=(tot/Qs.length*100)+'%';
+  document.getElementById('pbarlbl').textContent=`${tot} / ${Qs.length}`;
+  document.getElementById('bnext').disabled=!all;
+  document.getElementById('bprev').style.visibility=pg===0?'hidden':'visible';
+  document.getElementById('bprev').textContent=t('back_q');
+  document.getElementById('bnext').textContent=pg===TOTPG-1?t('see_results'):t('next_q');
+}
+
+function nav(d){
+  if(d===1&&pg===TOTPG-1){calc();return;}
+  pg+=d; dots(); rpage(); window.scrollTo(0,0);
+}
+
+function score(){
+  const m={CR:[],LS:[],FQ:[],TA:[],SC:[]};
+  Qs.forEach(q=>{let v=ans[q.id];if(q.r)v=6-v;m[q.d].push(v);});
+  const ds={};for(const[k,vs]of Object.entries(m))ds[k]=vs.reduce((a,b)=>a+b)/vs.length;
+  const os={};for(const[k,wt]of Object.entries(WTS)){let s=0;
+    for(const[d,w]of Object.entries(wt))s+=w*ds[d];os[k]=(s-1)/4*100;}
+  return{ds,os};
+}
+
+function calc(){
+  const{ds,os}=score(); lastScores={ds,os}; submitStatus=null;
+  renderResults(ds,os,true);
+}
+
+function mkRadar(ds,col){
+  const cx=125,cy=125,R=88,Rl=112,keys=Object.keys(ds),n=keys.length;
+  const pt=(r,i)=>{const a=-Math.PI/2+i*2*Math.PI/n;return[cx+r*Math.cos(a),cy+r*Math.sin(a)];};
+  let g='',ax='',lb='';
+  for(let lv=1;lv<=5;lv++){g+=`<polygon points="${keys.map((_,i)=>pt(R*lv/5,i).join(',')).join(' ')}"
+    fill="none" stroke="rgba(255,255,255,.06)" stroke-width="1"/>`;}
+  keys.forEach((_,i)=>{const[x2,y2]=pt(R,i);
+    ax+=`<line x1="${cx}" y1="${cy}" x2="${x2}" y2="${y2}" stroke="rgba(255,255,255,.09)" stroke-width="1"/>`;
+    const[lx,ly]=pt(Rl,i);
+    lb+=`<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle"
+      font-size="9" font-family="Cairo,DM Sans,sans-serif" fill="#64748b" font-weight="600">${t('dim')[keys[i]]}</text>`;});
+  const dp=keys.map((k,i)=>pt(R*(ds[k]/5),i).join(',')).join(' ');
+  const dts=keys.map((k,i)=>{const[px,py]=pt(R*(ds[k]/5),i);
+    return`<circle cx="${px}" cy="${py}" r="4.5" fill="${col}" stroke="rgba(0,0,0,.25)" stroke-width="1"/>`;}).join('');
+  return`<svg viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg">
+    ${g}${ax}<polygon points="${dp}" fill="${col}20" stroke="${col}" stroke-width="2" stroke-linejoin="round"/>
+    ${dts}${lb}</svg>`;
+}
+
+function renderResults(ds,os,doSubmit){
+  const sorted=Object.entries(os).sort((a,b)=>b[1]-a[1]);
+  const[tk,ts]=sorted[0]; const diff=ts-sorted[1][1];
+  const cl=diff>=18?t('high'):diff>=7?t('moderate'):t('low');
+  const cc=diff>=18?'ch':diff>=7?'cm':'cl';
+  const specs=t('specializations'); const topS=specs.find(s=>s.key===tk);
+  document.getElementById('rcont').innerHTML=`
+    <div style="margin-top:14px">
+      <div class="rhero">
+        <div class="rlbl">${t('res_badge')}</div>
+        <h2 class="rspec">${topS.name}</h2>
+        <p class="rtag">${topS.tagline}</p>
+        <div class="cconf"><span>${t('confidence')}</span><span class="cbadge ${cc}">${cl}</span></div>
+      </div>
+      <div style="background:var(--panel);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);padding:20px;margin-bottom:12px">
+        <span class="slbl" style="color:var(--teal)">${t('ranked_title')}</span>
+        ${sorted.map(([k,v],idx)=>{const s=specs.find(x=>x.key===k);return`
+          <div class="srow"><div class="shdr"><span>${s.name}</span><span class="sval">${v.toFixed(1)}%</span></div>
+          <div class="strk"><div class="sfill s${idx}" style="width:0%" data-w="${v.toFixed(1)}"></div></div></div>`;}).join('')}
+      </div>
+      <div style="background:var(--panel);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);padding:20px;margin-bottom:12px">
+        <span class="slbl" style="color:var(--teal)">${t('profile')}</span>
+        <div class="radar-wrap">${mkRadar(ds,topS.col)}</div>
+        <div class="dimg">${Object.entries(ds).map(([d,sc])=>`
+          <div class="dcard"><span class="dscore">${sc.toFixed(1)}</span>
+            <span class="dname">${t('dim')[d]}</span></div>`).join('')}</div>
+      </div>
+      <div class="excard">
+        <span class="slbl" style="color:var(--teal)">${t('why')}</span>
+        <p style="margin-top:7px">${topS.desc}</p>
+      </div>
+      <div style="background:var(--panel);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);padding:18px;margin-bottom:12px">
+        <span class="slbl" style="color:var(--teal)">${t('courses_lbl')}</span>
+        <div class="tags">${topS.courses.map(c=>`<span class="tag">${c}</span>`).join('')}</div>
+      </div>
+      <div style="background:var(--panel);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);padding:18px;margin-bottom:12px">
+        <span class="slbl" style="color:var(--teal)">${t('careers_lbl')}</span>
+        <div class="tags">${topS.careers.map(c=>`<span class="tag">${c}</span>`).join('')}</div>
+      </div>
+      <div style="margin-bottom:12px">
+        <span class="slbl" style="color:var(--teal)">${t('alt_lbl')}</span>
+        <div class="alts-grid">
+          ${sorted.slice(1,3).map(([k,v],i)=>{const s=specs.find(x=>x.key===k);
+            return`<div class="alt-item"><div class="ai"><p>${s.name}</p><span>${v.toFixed(1)}%</span></div>
+              <span class="alt-rank ${i===0?'r2':'r3'}">#${i+2}</span></div>`;}).join('')}
+        </div>
+      </div>
+      <div id="smsg" class="smsg">${t('saving')}</div>
+      <button class="btn btn-t btn-w" onclick="window.print()" style="margin-bottom:10px">${t('print')}</button>
+      <button class="btn btn-o btn-w" onclick="location.reload()">${t('retake')}</button>
+      <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:12px">${t('footer')}</p>
+    </div>`;
+  curScreen='s-results';
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s-results').classList.add('active');
+  window.scrollTo(0,0);
+  setTimeout(()=>{document.querySelectorAll('.sfill[data-w]').forEach(el=>{el.style.width=el.dataset.w+'%';});},120);
+  const smsg=document.getElementById('smsg');
+  if(!doSubmit&&submitStatus){
+    if(submitStatus==='ok'){smsg.textContent=t('saved');smsg.className='smsg ok';}
+    else if(submitStatus==='err'){smsg.textContent=t('error');smsg.className='smsg err';}
+    else smsg.textContent=t('not_configured');
+  } else { submit(ds,os,topS.name,cl,sorted); }
+}
+
+function submit(ds,os,rec,conf,sorted){
+  const el=document.getElementById('smsg');
+  if(SHEETS_URL==='YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'){
+    el.textContent=t('not_configured'); submitStatus='not_configured'; return;}
+  const specs=t('specializations');
+  const r2=specs.find(s=>s.key===sorted[1][0])?.name||'';
+  const r3=specs.find(s=>s.key===sorted[2][0])?.name||'';
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({timestamp:new Date().toISOString(),name:stu.name,email:stu.email,
+      studentId:stu.studentId,answers:ans,dimScores:ds,outcomes:os,
+      recommendation:rec,confidence:conf,rank2:r2,rank3:r3})
+  }).then(()=>{el.textContent=t('saved');el.className='smsg ok';submitStatus='ok';})
+   .catch(()=>{el.textContent=t('error');el.className='smsg err';submitStatus='err';});
+}
+
+renderTopbar(); renderWelcome();
+</script>
+</body>
+</html>

@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Major Discovery – Badya University</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#08102a;--slate:#141e38;--card:#fff;--card-t:#1e293b;
+  --gold:#f59e0b;--gold-d:#d97706;--gold-l:#fef3c7;
+  --muted:#8899aa;--white:#f0f4f8;--success:#10b981;--radius:18px;
+}
+body{font-family:'Poppins',sans-serif;background:var(--navy);min-height:100vh;color:var(--white);overflow-x:hidden}
+body::before{content:'';position:fixed;top:-250px;right:-250px;width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(245,158,11,.06) 0%,transparent 65%);pointer-events:none}
+[dir="rtl"] body{font-family:'Cairo',sans-serif}
+[dir="rtl"] .hero-t,[dir="rtl"] .sh-title,[dir="rtl"] .rmaj{font-family:'Cairo',sans-serif}
+[dir="rtl"] .excard{border-left:none;border-right:4px solid var(--gold);border-radius:var(--radius) 0 0 var(--radius)}
+[dir="rtl"] .pbar-lbl{text-align:left}
+
+.app{max-width:660px;margin:0 auto;padding:0 18px;min-height:100vh;display:flex;flex-direction:column}
+.topbar{padding:18px 0 8px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.uni-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,.1);
+  border:1px solid rgba(245,158,11,.25);border-radius:50px;padding:5px 14px;font-size:11px;
+  color:var(--gold);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.year-tag{font-size:11px;color:var(--muted);border:1px solid rgba(255,255,255,.1);padding:5px 14px;border-radius:50px}
+.lang-btn{font-size:12px;font-weight:700;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);
+  color:var(--white);padding:5px 14px;border-radius:50px;cursor:pointer;transition:all .2s;font-family:inherit}
+.lang-btn:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4)}
+
+.screen{display:none;flex-direction:column;flex:1;padding:14px 0 52px;animation:fup .4s ease}
+.screen.active{display:flex}
+@keyframes fup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes slin{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:26px 0 10px}
+.hero-t{font-family:'Playfair Display',serif;font-size:clamp(2.1rem,6vw,3rem);line-height:1.15;margin-bottom:16px;font-weight:700}
+.hero-t em{color:var(--gold);font-style:normal}
+.hero-d{font-size:15px;color:var(--muted);line-height:1.75;max-width:520px;margin-bottom:28px}
+[dir="rtl"] .hero-d{text-align:right}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
+.stat{background:var(--slate);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:16px 10px;text-align:center}
+.stat b{font-family:'Playfair Display',serif;font-size:26px;color:var(--gold);display:block;line-height:1}
+[dir="rtl"] .stat b{font-family:'Cairo',sans-serif}
+.stat small{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:5px;display:block}
+.majors-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
+.major-pill{background:var(--slate);border:1px solid rgba(255,255,255,.06);border-radius:12px;
+  padding:15px;display:flex;align-items:center;gap:10px}
+.major-pill .mpico{font-size:20px;flex-shrink:0}
+.major-pill span{font-size:13px;color:var(--muted);font-weight:500}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 26px;
+  border-radius:50px;font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;cursor:pointer;
+  border:none;transition:all .22s cubic-bezier(.4,0,.2,1);line-height:1}
+[dir="rtl"] .btn{font-family:'Cairo',sans-serif}
+.btn-g{background:var(--gold);color:#000}
+.btn-g:hover{background:var(--gold-d);transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,158,11,.3)}
+.btn-o{background:transparent;color:var(--muted);border:1.5px solid rgba(255,255,255,.12)}
+.btn-o:hover{border-color:rgba(255,255,255,.35);color:var(--white)}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+.btn-w{width:100%}
+
+.card{background:var(--card);color:var(--card-t);border-radius:var(--radius);padding:24px;margin-bottom:12px;
+  box-shadow:0 2px 20px rgba(0,0,0,.18)}
+.fg{margin-bottom:15px}
+.fl{display:block;font-size:10px;font-weight:700;color:#94a3b8;letter-spacing:.07em;text-transform:uppercase;margin-bottom:5px}
+.fi{width:100%;padding:12px 15px;border:2px solid #e2e8f0;border-radius:12px;font-family:'Poppins',sans-serif;
+  font-size:15px;color:var(--slate);outline:none;background:#f8fafc;transition:border-color .2s}
+[dir="rtl"] .fi{font-family:'Cairo',sans-serif;text-align:right}
+.fi:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(245,158,11,.1)}
+.fi::placeholder{color:#cbd5e1}
+
+.ilist{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:26px}
+.iitem{display:flex;gap:13px;align-items:flex-start;font-size:14px;color:#b0c0d4;line-height:1.65}
+[dir="rtl"] .iitem{flex-direction:row-reverse;text-align:right}
+.iicon{width:32px;height:32px;background:rgba(245,158,11,.12);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+
+.pbar-wrap{background:var(--slate);border:1px solid rgba(255,255,255,.05);border-radius:14px;
+  padding:13px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px}
+.pbar-track{flex:1;height:7px;background:rgba(255,255,255,.08);border-radius:50px;overflow:hidden}
+.pbar-fill{height:100%;background:linear-gradient(90deg,var(--gold-d),var(--gold));border-radius:50px;
+  transition:width .5s cubic-bezier(.4,0,.2,1);min-width:3px}
+.pbar-lbl{font-size:12px;color:var(--muted);white-space:nowrap;font-weight:600;min-width:50px;text-align:right}
+.pdots{display:flex;gap:5px;justify-content:center;margin-bottom:10px}
+.pdot{height:5px;border-radius:50px;background:rgba(255,255,255,.13);transition:all .3s;width:5px}
+.pdot.done{background:rgba(245,158,11,.35)}
+.pdot.active{background:var(--gold);width:18px}
+
+.qcard{background:var(--card);color:var(--card-t);border-radius:var(--radius);padding:22px;margin-bottom:10px;animation:slin .28s ease}
+.qmeta{font-size:11px;font-weight:700;color:var(--gold-d);text-transform:uppercase;letter-spacing:.08em;margin-bottom:9px}
+.qtext{font-size:17px;font-weight:500;line-height:1.6;color:var(--slate);margin-bottom:20px}
+[dir="rtl"] .qtext{text-align:right;font-family:'Cairo',sans-serif}
+.lkwrap{display:flex;flex-direction:column;gap:7px}
+.lkends{display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;padding:0 2px;margin-bottom:3px}
+.lkrow{display:flex;gap:5px}
+.lopt{flex:1}
+.lopt input{display:none}
+.lopt label{display:flex;flex-direction:column;align-items:center;gap:3px;padding:11px 4px;
+  border-radius:10px;border:2px solid #e2e8f0;cursor:pointer;transition:all .2s;background:#f8fafc}
+.lopt label .ln{font-size:16px;font-weight:700;color:#94a3b8;line-height:1}
+.lopt label .lt{font-size:9px;color:#94a3b8;text-align:center;line-height:1.2}
+.lopt input:checked+label{border-color:var(--gold);background:var(--gold-l)}
+.lopt input:checked+label .ln,.lopt input:checked+label .lt{color:var(--gold-d)}
+.lopt label:hover{border-color:#d1d5db;background:#f1f5f9}
+.lopt input:checked+label:hover{border-color:var(--gold);background:var(--gold-l)}
+.qnav{display:flex;gap:10px;margin-top:4px}
+.qnav .btn{flex:1}
+
+.rhero{background:linear-gradient(145deg,#141e38 0%,#08102a 100%);
+  border:1px solid rgba(245,158,11,.3);border-radius:var(--radius);padding:28px;text-align:center;margin-bottom:12px}
+.rlbl{display:inline-block;background:var(--gold);color:#000;border-radius:50px;
+  padding:5px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+.rmaj{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,5vw,2.2rem);color:var(--white);margin-bottom:7px}
+.rtag{font-size:13px;color:var(--muted);font-style:italic;margin-bottom:12px}
+.cconf{display:flex;align-items:center;justify-content:center;gap:7px;font-size:13px;color:var(--muted)}
+.cbadge{padding:3px 13px;border-radius:50px;font-size:12px;font-weight:700}
+.ch{background:rgba(16,185,129,.15);color:#10b981}
+.cm{background:rgba(245,158,11,.15);color:var(--gold)}
+.cl{background:rgba(148,163,184,.15);color:var(--muted)}
+.srow{margin-bottom:12px}
+.shdr{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:5px;color:var(--muted)}
+.sval{color:var(--gold);font-weight:700}
+.strk{height:9px;background:rgba(255,255,255,.07);border-radius:50px;overflow:hidden}
+.sfill{height:100%;border-radius:50px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.sba{background:linear-gradient(90deg,#6366f1,#a5b4fc)}
+.sae{background:linear-gradient(90deg,#10b981,#6ee7b7)}
+.radar-wrap{display:flex;justify-content:center;margin:8px 0}
+.radar-wrap svg{width:250px;height:250px}
+.dimg{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:8px;margin-top:10px}
+.dcard{background:var(--slate);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:13px 8px;text-align:center}
+.dscore{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);display:block;line-height:1}
+[dir="rtl"] .dscore{font-family:'Cairo',sans-serif}
+.dname{font-size:9px;color:var(--muted);margin-top:5px;text-transform:uppercase;letter-spacing:.04em;line-height:1.3;display:block}
+[dir="rtl"] .dname{font-size:10px;letter-spacing:0;text-transform:none}
+.excard{background:var(--slate);border-left:4px solid var(--gold);
+  border-radius:0 var(--radius) var(--radius) 0;padding:18px 20px;margin-bottom:12px}
+.excard p{font-size:14px;line-height:1.85;color:#b0c0d4}
+[dir="rtl"] .excard p{text-align:right}
+.altcard{background:var(--card);color:var(--card-t);border-radius:var(--radius);padding:18px;
+  margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.altinfo p{font-weight:600;color:var(--slate);margin-bottom:2px}
+.altinfo span{font-size:12px;color:#64748b}
+.altbdg{background:#f0fdf4;color:#16a34a;padding:5px 13px;border-radius:50px;font-size:12px;font-weight:700;white-space:nowrap}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.tag{background:#f1f5f9;color:#334155;padding:5px 13px;border-radius:50px;font-size:12px;font-weight:500}
+.slbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold-d);margin-bottom:7px;display:block}
+[dir="rtl"] .slbl{text-align:right;letter-spacing:0;font-size:11px;text-transform:none}
+.smsg{text-align:center;font-size:13px;color:var(--muted);padding:12px;margin-bottom:6px}
+.smsg.ok{color:var(--success)}.smsg.err{color:#f87171}
+.sh-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);display:block;margin-bottom:5px}
+[dir="rtl"] .sh-lbl{text-align:right;letter-spacing:0;font-size:12px;text-transform:none}
+.sh-title{font-family:'Playfair Display',serif;font-size:1.45rem;margin-bottom:4px}
+[dir="rtl"] .sh-title{text-align:right}
+.sh-sub{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:18px}
+[dir="rtl"] .sh-sub{text-align:right}
+@media(max-width:480px){
+  .stats{grid-template-columns:1fr 1fr}
+  .stats .stat:last-child{grid-column:span 2}
+  .lopt label .lt{display:none}
+}
+@media print{
+  body{background:#fff;color:#000}
+  .btn,.qnav,.topbar,.pdots,.pbar-wrap{display:none!important}
+  .screen:not(.active){display:none}
+  .rhero,.excard,.altcard{border:1px solid #ccc;background:#f9f9f9}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div id="topbar" class="topbar"></div>
+  <section id="s-welcome" class="screen active"></section>
+  <section id="s-info" class="screen"></section>
+  <section id="s-instr" class="screen"></section>
+  <section id="s-qs" class="screen"></section>
+  <section id="s-results" class="screen"><div id="rcont"></div></section>
+</div>
+<script>
+/* Google Sheets URL — paste your Apps Script Web App URL here */
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzQG7KCCxZpXFQAULEoIgrUZdNGFxKHQ9KnrQKkaDxauSYrgmWWOgcEc-tffYmxB_Eb/exec';
+/* Apps Script code is in the separate apps-script.gs file */
+
+/* ── i18n ─────────────────────────────────────────────────────── */
+let LANG = 'en', curScreen = 's-welcome', lastScores = null, submitStatus = null;
+
+const TR = {
+  en: {
+    /* ─ Topbar (names stay English always) */
+    uni_name: 'Badya University · Business',
+    year_tag: 'Year 1 · Major',
+    lang_switch: 'العربية',
+
+    /* ─ Welcome */
+    eyebrow: 'Major Discovery Assessment',
+    hero_html: 'Find Your<br><em>Right Major</em>',
+    hero_desc: 'This assessment helps you choose between <strong style="color:#f0f4f8">Business Administration</strong> and <strong style="color:#f0f4f8">Applied Economics</strong>. Answer honestly and you will get a personalized recommendation.',
+    stat_q: 'Questions', stat_min: 'Minutes', stat_maj: 'Majors',
+    begin: 'Start Assessment →',
+
+    /* ─ Info */
+    step1: 'Step 1 of 3', info_title: 'Your Details',
+    info_sub: 'This information is kept private and used only for your academic report.',
+    label_name: 'Full Name', label_email: 'University Email', label_sid: 'Student ID',
+    ph_name: 'Ahmed Mohamed Mahmoud', ph_email: 's123456@badyauni.edu.eg', ph_sid: '20250001',
+    continue: 'Continue →', back: '← Back',
+    fill_all: 'Please fill in all three fields before continuing.',
+
+    /* ─ Instructions */
+    step2: 'Step 2 of 3', instr_title: 'How It Works',
+    instr_sub: 'Read this before you start.',
+    i1: 'Answer based on how you <strong style="color:#f0f4f8">really</strong> feel — not what sounds good. There are no right or wrong answers.',
+    i2: 'Use the <strong style="color:#f0f4f8">1–5 scale</strong>: 1 = Strongly Disagree, 5 = Strongly Agree. Use the full range.',
+    i3: 'Go with your <strong style="color:#f0f4f8">first instinct</strong>. The whole test takes about 10 minutes.',
+    i4: 'You will see your <strong style="color:#f0f4f8">recommended major</strong>, a confidence level, and a full profile with explanation.',
+    i5: 'Your answers are saved to help the faculty give you better guidance.',
+    ready: "I'm Ready — Let's Go 🚀",
+
+    /* ─ Questions */
+    q_label: 'Question', q_of: 'of',
+    sd: 'Strongly Disagree', sa: 'Strongly Agree',
+    likert: ['SD', 'D', 'N', 'A', 'SA'],
+    back_q: '← Back', next_q: 'Next →', see_results: '🎯 See My Results',
+
+    /* ─ Results */
+    res_badge: '✨ Your Recommended Major', confidence: 'Confidence:',
+    high: 'High', moderate: 'Moderate', low: 'Low',
+    score_cmp: 'Score Comparison', profile: 'Your Profile',
+    why: 'Why This Major Fits You', careers_lbl: 'Career Options',
+    alt_lbl: 'Alternative', alt_score: 'Score',
+    saving: '📡 Saving your results…',
+    not_configured: 'ℹ️ Sheets URL not set. Add your Apps Script URL to enable saving.',
+    saved: '✅ Results saved successfully. Good luck!',
+    error: '⚠️ Could not save. Your result is still shown above.',
+    print: '🖨️ Save / Print as PDF', retake: '↩ Retake',
+    footer: 'Faculty of Business Administration & Applied Economics · Badya University',
+
+    /* ─ Dimension labels */
+    dim: { QA: 'Quantitative', PM: 'Policy & Macro', PO: 'People & Org.', EC: 'Entrepreneurial', SS: 'Social Science' },
+
+    /* ─ Major data — names & taglines stay in English */
+    majors: {
+      BA: {
+        name: 'Business Administration', tagline: 'Lead · Build · Create', col: '#6366f1',
+        desc: 'You enjoy working with people, leading teams, and making things happen. Business Administration is a great fit — it covers management, marketing, finance, and entrepreneurship. You are ready to grow into a strong business leader.',
+        careers: ['Management Consultant', 'Marketing Manager', 'Entrepreneur', 'HR Manager', 'Operations Lead', 'Brand Strategist']
+      },
+      AE: {
+        name: 'Applied Economics', tagline: 'Analyze · Research · Advise', col: '#10b981',
+        desc: 'You enjoy numbers, data, and thinking about how economies work. Applied Economics will teach you to analyze economic problems and develop policy solutions. It is a great fit if you like research and thinking deeply about big questions.',
+        careers: ['Economic Analyst', 'Policy Advisor', 'Research Economist', 'Data Scientist', 'Central Bank Officer', 'Development Consultant']
+      }
+    },
+
+    /* ─ 25 Questions */
+    questions: [
+      "I enjoy working with numbers, graphs, and formulas.",
+      "I find it rewarding to help a team work together better.",
+      "I often wonder how government decisions affect people's daily lives.",
+      "I would love to build my own business one day.",
+      "I am curious about why some countries are richer than others.",
+      "I prefer using data and facts to make decisions, not just guessing.",
+      "I would rather do deep research alone than manage a team.",
+      "When I read the news, I pay attention to economic stats and policy changes.",
+      "I enjoy finding unsolved problems and imagining how to fix them.",
+      "Understanding why economic problems happen interests me more than finding business solutions.",
+      "I really enjoy working with charts, data, and numbers.",
+      "I believe good leadership and managing people are the most important business skills.",
+      "I find economics and policy more interesting than sales or marketing tactics.",
+      "Successful entrepreneurs inspire me more than academic researchers.",
+      "I enjoy reading studies about society, economics, or politics.",
+      "I can spend a long time on a math or data problem without getting bored.",
+      "I enjoy organizing tasks, assigning work, and keeping a team on track.",
+      "I think understanding economic trends is important before making any big decision.",
+      "I prefer to fully understand a problem before acting, rather than acting fast and learning later.",
+      "Topics like poverty, trade, and economic development really interest me.",
+      "When things are uncertain, I gather data to measure the risk before deciding.",
+      "I naturally enjoy motivating others and helping them grow.",
+      "I would find it meaningful to advise governments or organizations on economic policy.",
+      "I usually see every situation as a chance to create something new or valuable.",
+      "I am more interested in economic theory than in day-to-day business tasks."
+    ]
+  },
+
+  ar: {
+    /* ─ Topbar — names stay in English */
+    uni_name: 'Badya University · Business',
+    year_tag: 'Year 1 · اختيار التخصص',
+    lang_switch: 'English',
+
+    /* ─ Welcome */
+    eyebrow: 'اختبار اكتشاف التخصص',
+    hero_html: 'اكتشف<br><em>تخصصك المناسب</em>',
+    hero_desc: 'هذا الاختبار يساعدك على الاختيار بين <strong style="color:#f0f4f8">Business Administration</strong> و<strong style="color:#f0f4f8">Applied Economics</strong>. أجب بصدق وستحصل على توصية شخصية.',
+    stat_q: 'سؤالاً', stat_min: 'دقيقة', stat_maj: 'تخصصان',
+    begin: 'ابدأ الاختبار ←',
+
+    /* ─ Info */
+    step1: 'الخطوة 1 من 3', info_title: 'بياناتك',
+    info_sub: 'بياناتك سرية وتُستخدم فقط في تقريرك الأكاديمي.',
+    label_name: 'الاسم الكامل', label_email: 'البريد الجامعي', label_sid: 'الرقم الجامعي',
+    ph_name: 'أحمد محمد محمود', ph_email: 's123456@badyauni.edu.eg', ph_sid: '20250001',
+    continue: 'متابعة ←', back: 'رجوع →',
+    fill_all: 'يرجى ملء الحقول الثلاثة قبل المتابعة.',
+
+    /* ─ Instructions */
+    step2: 'الخطوة 2 من 3', instr_title: 'كيف يعمل الاختبار',
+    instr_sub: 'اقرأ هذا قبل أن تبدأ.',
+    i1: 'أجب بناءً على ما تشعر به <strong style="color:#f0f4f8">فعلاً</strong> — وليس ما يبدو صحيحاً. لا توجد إجابة صح أو غلط.',
+    i2: 'استخدم <strong style="color:#f0f4f8">المقياس من 1 إلى 5</strong>: 1 = لا أوافق بشدة، 5 = أوافق بشدة.',
+    i3: 'اتبع <strong style="color:#f0f4f8">أول إحساسك</strong>. لا تفكر كثيراً. الاختبار يأخذ حوالي 10 دقائق.',
+    i4: 'ستظهر لك <strong style="color:#f0f4f8">التخصص المقترح</strong> ومستوى الثقة وشرح كامل لنتيجتك.',
+    i5: 'إجاباتك تُحفظ لمساعدة الكلية على تقديم إرشاد أكاديمي أفضل لك.',
+    ready: 'أنا مستعد — هيا بنا 🚀',
+
+    /* ─ Questions */
+    q_label: 'السؤال', q_of: 'من',
+    sd: 'لا أوافق بشدة', sa: 'أوافق بشدة',
+    likert: ['بشدة لا', 'لا', 'محايد', 'نعم', 'تماماً'],
+    back_q: 'رجوع →', next_q: '← التالي', see_results: '🎯 اعرض نتائجي',
+
+    /* ─ Results */
+    res_badge: '✨ التخصص المقترح لك', confidence: 'مستوى الثقة:',
+    high: 'عالٍ', moderate: 'متوسط', low: 'منخفض',
+    score_cmp: 'مقارنة النتائج', profile: 'ملفك الشخصي',
+    why: 'لماذا يناسبك هذا التخصص', careers_lbl: 'خيارات مهنية',
+    alt_lbl: 'الخيار البديل', alt_score: 'النتيجة',
+    saving: '📡 جارٍ حفظ نتائجك…',
+    not_configured: 'ℹ️ لم يتم ضبط رابط Sheets. أضف رابط Apps Script لتفعيل الحفظ.',
+    saved: '✅ تم حفظ النتائج. بالتوفيق!',
+    error: '⚠️ لم يتم الحفظ. نتيجتك تظهر أعلاه.',
+    print: '🖨️ حفظ / طباعة كـ PDF', retake: '↩ إعادة الاختبار',
+    footer: 'Faculty of Business Administration & Applied Economics · Badya University',
+
+    /* ─ Dimension labels */
+    dim: { QA: 'كمي', PM: 'سياسات وكلي', PO: 'أشخاص وتنظيم', EC: 'ريادي', SS: 'علوم اجتماعية' },
+
+    /* ─ Major data — names stay English, desc & tagline translated */
+    majors: {
+      BA: {
+        name: 'Business Administration', tagline: 'قُد · ابنِ · أبدع', col: '#6366f1',
+        desc: 'تستمتع بالعمل مع الناس وقيادة الفرق وإنجاز الأمور. Business Administration مناسب لك جداً — يشمل الإدارة والتسويق والمالية وريادة الأعمال. ستنمو لتصبح قائداً قوياً في عالم الأعمال.',
+        careers: ['Management Consultant', 'Marketing Manager', 'Entrepreneur', 'HR Manager', 'Operations Lead', 'Brand Strategist']
+      },
+      AE: {
+        name: 'Applied Economics', tagline: 'حلّل · ابحث · أثّر', col: '#10b981',
+        desc: 'تستمتع بالأرقام والبيانات والتفكير في كيفية عمل الاقتصادات. Applied Economics سيعلمك تحليل المشكلات الاقتصادية والتفكير في حلول السياسات. إنه مناسب لمن يحب البحث والتفكير في الأسئلة الكبيرة.',
+        careers: ['Economic Analyst', 'Policy Advisor', 'Research Economist', 'Data Scientist', 'Central Bank Officer', 'Development Consultant']
+      }
+    },
+
+    /* ─ 25 Questions — Arabic, simplified */
+    questions: [
+      "أستمتع بالعمل مع الأرقام والرسوم البيانية والمعادلات.",
+      "أجد متعة في مساعدة الفريق على العمل معاً بشكل أفضل.",
+      "كثيراً ما أتساءل كيف تؤثر قرارات الحكومة على حياة الناس اليومية.",
+      "أحلم ببناء مشروعي التجاري الخاص يوماً ما.",
+      "أتساءل لماذا بعض الدول أغنى اقتصادياً من غيرها.",
+      "أفضل الاعتماد على البيانات والحقائق في اتخاذ القرارات.",
+      "أفضل العمل بمفردي في بحث عميق على إدارة فريق.",
+      "عند قراءة الأخبار، أنتبه للأرقام الاقتصادية والسياسات.",
+      "أستمتع بالتفكير في مشكلات لم تُحل بعد وتخيل طرق لحلها.",
+      "فهم سبب المشكلات الاقتصادية يهمني أكثر من إيجاد حلول تجارية لها.",
+      "أستمتع حقاً بالعمل مع البيانات والرسوم البيانية والأرقام.",
+      "أعتقد أن القيادة الجيدة وإدارة الناس هي أهم مهارات الأعمال.",
+      "أجد الاقتصاد والسياسات أكثر إثارة من المبيعات والتسويق.",
+      "يُلهمني رواد الأعمال الناجحون أكثر من الباحثين الأكاديميين.",
+      "أستمتع بقراءة الدراسات عن المجتمع والاقتصاد والسياسة.",
+      "أستطيع قضاء وقت طويل في حل مسألة رياضية أو تحليل بيانات دون ملل.",
+      "أستمتع بتنظيم المهام وتوزيع العمل وإبقاء الفريق على المسار.",
+      "أعتقد أن فهم الاتجاهات الاقتصادية مهم قبل اتخاذ أي قرار كبير.",
+      "أفضل أن أفهم المشكلة جيداً قبل التصرف، بدلاً من التصرف بسرعة والتعلم لاحقاً.",
+      "موضوعات مثل الفقر والتجارة والتنمية الاقتصادية تثير اهتمامي.",
+      "عند مواجهة الغموض، أجمع البيانات وأقيس المخاطر قبل القرار.",
+      "أستمتع بطبيعتي بتحفيز الآخرين ومساعدتهم على التطور.",
+      "سيكون ذا معنى أن أعمل مستشاراً للحكومات أو المنظمات في السياسة الاقتصادية.",
+      "عادةً أرى في كل موقف فرصة لخلق شيء جديد أو ذي قيمة.",
+      "أهتم بالنظرية الاقتصادية أكثر من المهام اليومية في الأعمال."
+    ]
+  }
+};
+
+function t(k){ return (TR[LANG]&&TR[LANG][k]!==undefined)?TR[LANG][k]:TR.en[k]; }
+
+/* ── Language toggle ──────────────────────────────────────────── */
+function toggleLang(){
+  LANG = LANG==='en'?'ar':'en';
+  const h=document.documentElement; h.lang=LANG; h.dir=LANG==='ar'?'rtl':'ltr';
+  renderTopbar();
+  if(curScreen==='s-welcome') renderWelcome();
+  else if(curScreen==='s-info') renderInfo();
+  else if(curScreen==='s-instr') renderInstr();
+  else if(curScreen==='s-qs'){rpage();ui();}
+  else if(curScreen==='s-results'&&lastScores) renderResults(lastScores.ds,lastScores.os,false);
+}
+
+/* ── Render screens ───────────────────────────────────────────── */
+function renderTopbar(){
+  document.getElementById('topbar').innerHTML=`
+    <span class="uni-badge">🎓 ${t('uni_name')}</span>
+    <div class="topbar-right">
+      <span class="year-tag">${t('year_tag')}</span>
+      <button class="lang-btn" onclick="toggleLang()">${t('lang_switch')}</button>
+    </div>`;
+}
+
+function renderWelcome(){
+  document.getElementById('s-welcome').innerHTML=`
+    <p class="eyebrow">${t('eyebrow')}</p>
+    <h1 class="hero-t">${t('hero_html')}</h1>
+    <p class="hero-d">${t('hero_desc')}</p>
+    <div class="stats">
+      <div class="stat"><b>25</b><small>${t('stat_q')}</small></div>
+      <div class="stat"><b>~10</b><small>${t('stat_min')}</small></div>
+      <div class="stat"><b>2</b><small>${t('stat_maj')}</small></div>
+    </div>
+    <div class="majors-grid">
+      <div class="major-pill"><span class="mpico">🏛️</span><span>Business Administration</span></div>
+      <div class="major-pill"><span class="mpico">📊</span><span>Applied Economics</span></div>
+    </div>
+    <button class="btn btn-g btn-w" onclick="show('s-info')">${t('begin')}</button>`;
+}
+
+function renderInfo(){
+  const nv=document.getElementById('iname')?.value||'';
+  const ev=document.getElementById('iemail')?.value||'';
+  const sv=document.getElementById('isid')?.value||'';
+  document.getElementById('s-info').innerHTML=`
+    <div style="margin-top:14px">
+      <span class="sh-lbl">${t('step1')}</span>
+      <h2 class="sh-title">${t('info_title')}</h2>
+      <p class="sh-sub">${t('info_sub')}</p>
+    </div>
+    <div class="card">
+      <div class="fg"><label class="fl" for="iname">${t('label_name')} *</label>
+        <input id="iname" type="text" class="fi" placeholder="${t('ph_name')}"></div>
+      <div class="fg"><label class="fl" for="iemail">${t('label_email')} *</label>
+        <input id="iemail" type="email" class="fi" placeholder="${t('ph_email')}"></div>
+      <div class="fg" style="margin-bottom:4px"><label class="fl" for="isid">${t('label_sid')} *</label>
+        <input id="isid" type="text" class="fi" placeholder="${t('ph_sid')}"></div>
+    </div>
+    <button class="btn btn-g btn-w" onclick="doInfo()" style="margin-bottom:10px">${t('continue')}</button>
+    <button class="btn btn-o btn-w" onclick="show('s-welcome')">${t('back')}</button>`;
+  if(nv) document.getElementById('iname').value=nv;
+  if(ev) document.getElementById('iemail').value=ev;
+  if(sv) document.getElementById('isid').value=sv;
+}
+
+function renderInstr(){
+  document.getElementById('s-instr').innerHTML=`
+    <div style="margin-top:14px">
+      <span class="sh-lbl">${t('step2')}</span>
+      <h2 class="sh-title">${t('instr_title')}</h2>
+      <p class="sh-sub">${t('instr_sub')}</p>
+    </div>
+    <ul class="ilist">
+      <li class="iitem"><div class="iicon">🧠</div><span>${t('i1')}</span></li>
+      <li class="iitem"><div class="iicon">⚖️</div><span>${t('i2')}</span></li>
+      <li class="iitem"><div class="iicon">⚡</div><span>${t('i3')}</span></li>
+      <li class="iitem"><div class="iicon">📊</div><span>${t('i4')}</span></li>
+      <li class="iitem"><div class="iicon">🔐</div><span>${t('i5')}</span></li>
+    </ul>
+    <button class="btn btn-g btn-w" onclick="startQ()">${t('ready')}</button>`;
+}
+
+function show(id){
+  curScreen=id;
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='s-welcome') renderWelcome();
+  else if(id==='s-info') renderInfo();
+  else if(id==='s-instr') renderInstr();
+}
+
+function doInfo(){
+  const n=document.getElementById('iname').value.trim(),
+        e=document.getElementById('iemail').value.trim(),
+        s=document.getElementById('isid').value.trim();
+  if(!n||!e||!s){alert(t('fill_all'));return;}
+  stu={name:n,email:e,studentId:s}; show('s-instr');
+}
+
+/* ── Assessment data ──────────────────────────────────────────── */
+const Qs=[
+  {id:1,d:'QA',r:false},{id:2,d:'PO',r:false},{id:3,d:'PM',r:false},
+  {id:4,d:'EC',r:false},{id:5,d:'SS',r:false},{id:6,d:'QA',r:false},
+  {id:7,d:'PO',r:true}, {id:8,d:'PM',r:false},{id:9,d:'EC',r:false},
+  {id:10,d:'SS',r:false},{id:11,d:'QA',r:false},{id:12,d:'PO',r:false},
+  {id:13,d:'PM',r:false},{id:14,d:'EC',r:false},{id:15,d:'SS',r:false},
+  {id:16,d:'QA',r:false},{id:17,d:'PO',r:false},{id:18,d:'PM',r:false},
+  {id:19,d:'EC',r:true}, {id:20,d:'SS',r:false},{id:21,d:'QA',r:false},
+  {id:22,d:'PO',r:false},{id:23,d:'PM',r:false},{id:24,d:'EC',r:false},
+  {id:25,d:'SS',r:false}
+];
+const WTS={BA:{QA:.15,PM:.05,PO:.35,EC:.35,SS:.10},AE:{QA:.30,PM:.35,PO:.05,EC:.05,SS:.25}};
+const PG=5, TOTPG=Math.ceil(Qs.length/PG);
+let stu={}, ans={}, pg=0;
+
+function startQ(){
+  pg=0; ans={};
+  document.getElementById('s-qs').innerHTML=`
+    <div class="pbar-wrap"><div class="pbar-track"><div class="pbar-fill" id="pbar" style="width:4%"></div></div>
+      <span class="pbar-lbl" id="pbarlbl">0 / 25</span></div>
+    <div class="pdots" id="pdots"></div>
+    <div id="qcont"></div>
+    <div class="qnav">
+      <button class="btn btn-o" id="bprev" onclick="nav(-1)"></button>
+      <button class="btn btn-g" id="bnext" onclick="nav(1)" disabled></button>
+    </div>`;
+  curScreen='s-qs';
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s-qs').classList.add('active');
+  window.scrollTo(0,0); dots(); rpage();
+}
+
+function dots(){
+  const el=document.getElementById('pdots'); el.innerHTML='';
+  for(let i=0;i<TOTPG;i++){const d=document.createElement('div');
+    d.className='pdot'+(i===pg?' active':i<pg?' done':'');el.appendChild(d);}
+}
+
+function rpage(){
+  const c=document.getElementById('qcont'),st=pg*PG; c.innerHTML='';
+  const qs=t('questions');
+  Qs.slice(st,st+PG).forEach((q,qi)=>{
+    const el=document.createElement('div'); el.className='qcard';
+    el.innerHTML=`<p class="qmeta">${t('q_label')} ${q.id} ${t('q_of')} ${Qs.length}</p>
+      <p class="qtext">${qs[st+qi]}</p>
+      <div class="lkwrap">
+        <div class="lkends"><span>${t('sd')}</span><span>${t('sa')}</span></div>
+        <div class="lkrow">${[1,2,3,4,5].map(v=>`
+          <div class="lopt"><input type="radio" name="q${q.id}" id="q${q.id}v${v}" value="${v}"
+            ${ans[q.id]===v?'checked':''} onchange="rec(${q.id},${v})">
+          <label for="q${q.id}v${v}"><span class="ln">${v}</span>
+            <span class="lt">${t('likert')[v-1]}</span></label></div>`).join('')}
+        </div></div>`;
+    c.appendChild(el);});
+  ui();
+}
+
+function rec(id,v){ans[id]=v;ui();}
+
+function ui(){
+  const st=pg*PG,pq=Qs.slice(st,st+PG),all=pq.every(q=>ans[q.id]!==undefined);
+  const tot=Object.keys(ans).length;
+  document.getElementById('pbar').style.width=(tot/Qs.length*100)+'%';
+  document.getElementById('pbarlbl').textContent=`${tot} / ${Qs.length}`;
+  document.getElementById('bnext').disabled=!all;
+  document.getElementById('bprev').style.visibility=pg===0?'hidden':'visible';
+  document.getElementById('bprev').textContent=t('back_q');
+  document.getElementById('bnext').textContent=pg===TOTPG-1?t('see_results'):t('next_q');
+}
+
+function nav(d){
+  if(d===1&&pg===TOTPG-1){calc();return;}
+  pg+=d; dots(); rpage(); window.scrollTo(0,0);
+}
+
+function score(){
+  const m={QA:[],PM:[],PO:[],EC:[],SS:[]};
+  Qs.forEach(q=>{let v=ans[q.id];if(q.r)v=6-v;m[q.d].push(v);});
+  const ds={};for(const[k,vs]of Object.entries(m))ds[k]=vs.reduce((a,b)=>a+b)/vs.length;
+  const os={};for(const[k,wt]of Object.entries(WTS)){let s=0;
+    for(const[d,w]of Object.entries(wt))s+=w*ds[d];os[k]=(s-1)/4*100;}
+  return{ds,os};
+}
+
+function calc(){
+  const{ds,os}=score(); lastScores={ds,os}; submitStatus=null;
+  renderResults(ds,os,true);
+}
+
+function mkRadar(ds,col){
+  const cx=125,cy=125,R=88,Rl=112,keys=Object.keys(ds),n=keys.length;
+  const pt=(r,i)=>{const a=-Math.PI/2+i*2*Math.PI/n;return[cx+r*Math.cos(a),cy+r*Math.sin(a)];};
+  let g='',ax='',lb='';
+  for(let lv=1;lv<=5;lv++){g+=`<polygon points="${keys.map((_,i)=>pt(R*lv/5,i).join(',')).join(' ')}"
+    fill="none" stroke="rgba(255,255,255,.06)" stroke-width="1"/>`;}
+  keys.forEach((_,i)=>{const[x2,y2]=pt(R,i);
+    ax+=`<line x1="${cx}" y1="${cy}" x2="${x2}" y2="${y2}" stroke="rgba(255,255,255,.09)" stroke-width="1"/>`;
+    const[lx,ly]=pt(Rl,i);
+    lb+=`<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle"
+      font-size="9" font-family="Cairo,Poppins,sans-serif" fill="#64748b" font-weight="600">${t('dim')[keys[i]]}</text>`;});
+  const dp=keys.map((k,i)=>pt(R*(ds[k]/5),i).join(',')).join(' ');
+  const dts=keys.map((k,i)=>{const[px,py]=pt(R*(ds[k]/5),i);
+    return`<circle cx="${px}" cy="${py}" r="4.5" fill="${col}" stroke="rgba(0,0,0,.25)" stroke-width="1"/>`;}).join('');
+  return`<svg viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg">
+    ${g}${ax}<polygon points="${dp}" fill="${col}20" stroke="${col}" stroke-width="2" stroke-linejoin="round"/>
+    ${dts}${lb}</svg>`;
+}
+
+function renderResults(ds,os,doSubmit){
+  const sorted=Object.entries(os).sort((a,b)=>b[1]-a[1]);
+  const[tk,ts]=sorted[0],[ak,as]=sorted[1];
+  const diff=ts-as,cl=diff>=20?t('high'):diff>=8?t('moderate'):t('low');
+  const cc=diff>=20?'ch':diff>=8?'cm':'cl';
+  const majors=t('majors'); const info=majors[tk],ai=majors[ak];
+  document.getElementById('rcont').innerHTML=`
+    <div style="margin-top:14px">
+      <div class="rhero">
+        <div class="rlbl">${t('res_badge')}</div>
+        <h2 class="rmaj">${info.name}</h2>
+        <p class="rtag">${info.tagline}</p>
+        <div class="cconf"><span>${t('confidence')}</span><span class="cbadge ${cc}">${cl}</span></div>
+      </div>
+      <div class="card">
+        <span class="slbl">${t('score_cmp')}</span>
+        ${Object.entries(os).map(([k,v])=>`
+          <div class="srow"><div class="shdr"><span>${majors[k].name}</span>
+            <span class="sval">${v.toFixed(1)}%</span></div>
+          <div class="strk"><div class="sfill s${k.toLowerCase()}" style="width:0%" data-w="${v.toFixed(1)}"></div></div>
+          </div>`).join('')}
+      </div>
+      <div style="background:var(--slate);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);padding:20px;margin-bottom:12px">
+        <span class="slbl" style="color:var(--gold)">${t('profile')}</span>
+        <div class="radar-wrap">${mkRadar(ds,info.col)}</div>
+        <div class="dimg">${Object.entries(ds).map(([d,sc])=>`
+          <div class="dcard"><span class="dscore">${sc.toFixed(1)}</span>
+            <span class="dname">${t('dim')[d]}</span></div>`).join('')}</div>
+      </div>
+      <div class="excard">
+        <span class="slbl" style="color:var(--gold)">${t('why')}</span>
+        <p style="margin-top:7px">${info.desc}</p>
+      </div>
+      <div class="card">
+        <span class="slbl">${t('careers_lbl')}</span>
+        <div class="tags">${info.careers.map(c=>`<span class="tag">${c}</span>`).join('')}</div>
+      </div>
+      <div class="altcard">
+        <div class="altinfo"><p>${ai.name}</p>
+          <span>${t('alt_lbl')} — ${t('alt_score')}: ${as.toFixed(1)}%</span></div>
+        <span class="altbdg">#2 Match</span>
+      </div>
+      <div id="smsg" class="smsg">${t('saving')}</div>
+      <button class="btn btn-g btn-w" onclick="window.print()" style="margin-bottom:10px">${t('print')}</button>
+      <button class="btn btn-o btn-w" onclick="location.reload()">${t('retake')}</button>
+      <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:12px">${t('footer')}</p>
+    </div>`;
+  curScreen='s-results';
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s-results').classList.add('active');
+  window.scrollTo(0,0);
+  setTimeout(()=>{document.querySelectorAll('.sfill[data-w]').forEach(el=>{el.style.width=el.dataset.w+'%';});},120);
+  const smsg=document.getElementById('smsg');
+  if(!doSubmit&&submitStatus){
+    if(submitStatus==='ok'){smsg.textContent=t('saved');smsg.className='smsg ok';}
+    else if(submitStatus==='err'){smsg.textContent=t('error');smsg.className='smsg err';}
+    else smsg.textContent=t('not_configured');
+  } else { submit(ds,os,info.name,cl); }
+}
+
+function submit(ds,os,rec,conf){
+  const el=document.getElementById('smsg');
+  if(SHEETS_URL==='YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'){
+    el.textContent=t('not_configured'); submitStatus='not_configured'; return;}
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({timestamp:new Date().toISOString(),name:stu.name,email:stu.email,
+      studentId:stu.studentId,answers:ans,dimScores:ds,outcomes:os,recommendation:rec,confidence:conf})
+  }).then(()=>{el.textContent=t('saved');el.className='smsg ok';submitStatus='ok';})
+   .catch(()=>{el.textContent=t('error');el.className='smsg err';submitStatus='err';});
+}
+
+renderTopbar(); renderWelcome();
+</script>
+</body>
+</html>
