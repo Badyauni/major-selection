@@ -26,7 +26,7 @@ body::before{content:'';position:fixed;top:-250px;right:-250px;width:700px;heigh
   border:1px solid rgba(245,158,11,.25);border-radius:50px;padding:5px 14px;font-size:11px;
   color:var(--gold);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
 .topbar-right{display:flex;align-items:center;gap:8px}
-.year-tag{font-size:11px;color:var(--muted);border:1px solid rgba(255,255,255,.1);padding:5px 14px;border-radius:50px}
+.year-tag{font-size:11px;color:var(--white);border:1px solid rgba(255,255,255,.1);padding:5px 14px;border-radius:50px}
 .lang-btn{font-size:12px;font-weight:700;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);
   color:var(--white);padding:5px 14px;border-radius:50px;cursor:pointer;transition:all .2s;font-family:inherit}
 .lang-btn:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4)}
@@ -39,13 +39,13 @@ body::before{content:'';position:fixed;top:-250px;right:-250px;width:700px;heigh
 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:26px 0 10px}
 .hero-t{font-family:'Playfair Display',serif;font-size:clamp(2.1rem,6vw,3rem);line-height:1.15;margin-bottom:16px;font-weight:700}
 .hero-t em{color:var(--gold);font-style:normal}
-.hero-d{font-size:15px;color:var(--muted);line-height:1.75;max-width:520px;margin-bottom:28px}
+.hero-d{font-size:15px;color:var(--white);line-height:1.75;max-width:520px;margin-bottom:28px}
 [dir="rtl"] .hero-d{text-align:right}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
 .stat{background:var(--slate);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:16px 10px;text-align:center}
 .stat b{font-family:'Playfair Display',serif;font-size:26px;color:var(--gold);display:block;line-height:1}
 [dir="rtl"] .stat b{font-family:'Cairo',sans-serif}
-.stat small{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:5px;display:block}
+.stat small{font-size:10px;color:var(--white);text-transform:uppercase;letter-spacing:.06em;margin-top:5px;display:block}
 .majors-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
 .major-pill{background:var(--slate);border:1px solid rgba(255,255,255,.06);border-radius:12px;
   padding:15px;display:flex;align-items:center;gap:10px}
@@ -74,7 +74,7 @@ body::before{content:'';position:fixed;top:-250px;right:-250px;width:700px;heigh
 .fi::placeholder{color:#cbd5e1}
 
 .ilist{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:26px}
-.iitem{display:flex;gap:13px;align-items:flex-start;font-size:14px;color:#b0c0d4;line-height:1.65}
+.iitem{display:flex;gap:13px;align-items:flex-start;font-size:14px;color:#ffffff;line-height:1.65}
 [dir="rtl"] .iitem{flex-direction:row-reverse;text-align:right}
 .iicon{width:32px;height:32px;background:rgba(245,158,11,.12);border-radius:10px;
   display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
@@ -134,7 +134,7 @@ body::before{content:'';position:fixed;top:-250px;right:-250px;width:700px;heigh
 .dcard{background:var(--slate);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:13px 8px;text-align:center}
 .dscore{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);display:block;line-height:1}
 [dir="rtl"] .dscore{font-family:'Cairo',sans-serif}
-.dname{font-size:9px;color:var(--muted);margin-top:5px;text-transform:uppercase;letter-spacing:.04em;line-height:1.3;display:block}
+.dname{font-size:9px;color:var(--white);margin-top:5px;text-transform:uppercase;letter-spacing:.04em;line-height:1.3;display:block}
 [dir="rtl"] .dname{font-size:10px;letter-spacing:0;text-transform:none}
 .excard{background:var(--slate);border-left:4px solid var(--gold);
   border-radius:0 var(--radius) var(--radius) 0;padding:18px 20px;margin-bottom:12px}
@@ -212,10 +212,10 @@ const TR = {
     /* ─ Instructions */
     step2: 'Step 2 of 3', instr_title: 'How It Works',
     instr_sub: 'Read this before you start.',
-    i1: 'Answer based on how you <strong style="color:#f0f4f8">really</strong> feel — not what sounds good. There are no right or wrong answers.',
-    i2: 'Use the <strong style="color:#f0f4f8">1–5 scale</strong>: 1 = Strongly Disagree, 5 = Strongly Agree. Use the full range.',
-    i3: 'Go with your <strong style="color:#f0f4f8">first instinct</strong>. The whole test takes about 10 minutes.',
-    i4: 'You will see your <strong style="color:#f0f4f8">recommended major</strong>, a confidence level, and a full profile with explanation.',
+    i1: 'Answer based on how you <strong style="color:#a0ff7a">really</strong> feel — not what sounds good. There are no right or wrong answers.',
+    i2: 'Use the <strong style="color:#a0ff7a">1–5 scale</strong>: 1 = Strongly Disagree, 5 = Strongly Agree. Use the full range.',
+    i3: 'Go with your <strong style="color:#a0ff7a">first instinct</strong>. The whole test takes about 10 minutes.',
+    i4: 'You will see your <strong style="color:#a0ff7a">recommended major</strong>, a confidence level, and a full profile with explanation.',
     i5: 'Your answers are saved to help the faculty give you better guidance.',
     ready: "I'm Ready — Let's Go 🚀",
 
@@ -584,7 +584,7 @@ function mkRadar(ds,col){
     ax+=`<line x1="${cx}" y1="${cy}" x2="${x2}" y2="${y2}" stroke="rgba(255,255,255,.09)" stroke-width="1"/>`;
     const[lx,ly]=pt(Rl,i);
     lb+=`<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle"
-      font-size="9" font-family="Cairo,Poppins,sans-serif" fill="#64748b" font-weight="600">${t('dim')[keys[i]]}</text>`;});
+      font-size="12" font-family="Cairo,Poppins,sans-serif" fill="#f0f4f8" font-weight="600">${t('dim')[keys[i]]}</text>`;});
   const dp=keys.map((k,i)=>pt(R*(ds[k]/5),i).join(',')).join(' ');
   const dts=keys.map((k,i)=>{const[px,py]=pt(R*(ds[k]/5),i);
     return`<circle cx="${px}" cy="${py}" r="4.5" fill="${col}" stroke="rgba(0,0,0,.25)" stroke-width="1"/>`;}).join('');
