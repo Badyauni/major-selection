@@ -8,13 +8,15 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#08102a;--slate:#141e38;--card:#fff;--card-t:#1e293b;
+  --navy:#f1f5f9;--slate:#ffffff;--card:#fff;--card-t:#1e293b;
   --gold:#f59e0b;--gold-d:#d97706;--gold-l:#fef3c7;
-  --muted:#8899aa;--white:#f0f4f8;--success:#10b981;--radius:18px;
+  --muted:#64748b;--white:#0f172a;--text-on-panel:#0f172a;
+  --success:#10b981;--radius:18px;
+  --brd:rgba(15,23,42,.08);
 }
 body{font-family:'Poppins',sans-serif;background:var(--navy);min-height:100vh;color:var(--white);overflow-x:hidden}
 body::before{content:'';position:fixed;top:-250px;right:-250px;width:700px;height:700px;border-radius:50%;
-  background:radial-gradient(circle,rgba(245,158,11,.06) 0%,transparent 65%);pointer-events:none}
+  background:radial-gradient(circle,rgba(245,158,11,.09) 0%,transparent 65%);pointer-events:none}
 [dir="rtl"] body{font-family:'Cairo',sans-serif}
 [dir="rtl"] .hero-t,[dir="rtl"] .sh-title,[dir="rtl"] .rmaj{font-family:'Cairo',sans-serif}
 [dir="rtl"] .excard{border-left:none;border-right:4px solid var(--gold);border-radius:var(--radius) 0 0 var(--radius)}
@@ -26,10 +28,10 @@ body::before{content:'';position:fixed;top:-250px;right:-250px;width:700px;heigh
   border:1px solid rgba(245,158,11,.25);border-radius:50px;padding:5px 14px;font-size:11px;
   color:var(--gold);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
 .topbar-right{display:flex;align-items:center;gap:8px}
-.year-tag{font-size:11px;color:var(--white);border:1px solid rgba(255,255,255,.1);padding:5px 14px;border-radius:50px}
-.lang-btn{font-size:12px;font-weight:700;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);
+.year-tag{font-size:11px;color:var(--white);border:1px solid rgba(15,23,42,.12);padding:5px 14px;border-radius:50px}
+.lang-btn{font-size:12px;font-weight:700;background:rgba(15,23,42,.04);border:1px solid rgba(15,23,42,.12);
   color:var(--white);padding:5px 14px;border-radius:50px;cursor:pointer;transition:all .2s;font-family:inherit}
-.lang-btn:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4)}
+.lang-btn:hover{background:rgba(15,23,42,.08);border-color:rgba(15,23,42,.3)}
 
 .screen{display:none;flex-direction:column;flex:1;padding:14px 0 52px;animation:fup .4s ease}
 .screen.active{display:flex}
@@ -38,19 +40,19 @@ body::before{content:'';position:fixed;top:-250px;right:-250px;width:700px;heigh
 
 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:26px 0 10px}
 .hero-t{font-family:'Playfair Display',serif;font-size:clamp(2.1rem,6vw,3rem);line-height:1.15;margin-bottom:16px;font-weight:700}
-.hero-t em{color:var(--gold);font-style:normal}
+.hero-t em{color:var(--gold-d);font-style:normal}
 .hero-d{font-size:15px;color:var(--white);line-height:1.75;max-width:520px;margin-bottom:28px}
 [dir="rtl"] .hero-d{text-align:right}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
-.stat{background:var(--slate);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:16px 10px;text-align:center}
-.stat b{font-family:'Playfair Display',serif;font-size:26px;color:var(--gold);display:block;line-height:1}
+.stat{background:var(--slate);border:1px solid var(--brd);border-radius:14px;padding:16px 10px;text-align:center;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+.stat b{font-family:'Playfair Display',serif;font-size:26px;color:var(--gold-d);display:block;line-height:1}
 [dir="rtl"] .stat b{font-family:'Cairo',sans-serif}
-.stat small{font-size:10px;color:var(--white);text-transform:uppercase;letter-spacing:.06em;margin-top:5px;display:block}
+.stat small{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:5px;display:block}
 .majors-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
-.major-pill{background:var(--slate);border:1px solid rgba(255,255,255,.06);border-radius:12px;
-  padding:15px;display:flex;align-items:center;gap:10px}
+.major-pill{background:var(--slate);border:1px solid var(--brd);border-radius:12px;
+  padding:15px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 3px rgba(15,23,42,.04)}
 .major-pill .mpico{font-size:20px;flex-shrink:0}
-.major-pill span{font-size:13px;color:var(--muted);font-weight:500}
+.major-pill span{font-size:13px;color:#334155;font-weight:500}
 
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 26px;
   border-radius:50px;font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;cursor:pointer;
@@ -58,41 +60,41 @@ body::before{content:'';position:fixed;top:-250px;right:-250px;width:700px;heigh
 [dir="rtl"] .btn{font-family:'Cairo',sans-serif}
 .btn-g{background:var(--gold);color:#000}
 .btn-g:hover{background:var(--gold-d);transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,158,11,.3)}
-.btn-o{background:transparent;color:var(--muted);border:1.5px solid rgba(255,255,255,.12)}
-.btn-o:hover{border-color:rgba(255,255,255,.35);color:var(--white)}
+.btn-o{background:transparent;color:var(--muted);border:1.5px solid rgba(15,23,42,.15)}
+.btn-o:hover{border-color:rgba(15,23,42,.3);color:var(--white)}
 .btn:disabled{opacity:.35;cursor:not-allowed;transform:none!important;box-shadow:none!important}
 .btn-w{width:100%}
 
 .card{background:var(--card);color:var(--card-t);border-radius:var(--radius);padding:24px;margin-bottom:12px;
-  box-shadow:0 2px 20px rgba(0,0,0,.18)}
+  box-shadow:0 2px 20px rgba(15,23,42,.07);border:1px solid var(--brd)}
 .fg{margin-bottom:15px}
-.fl{display:block;font-size:10px;font-weight:700;color:#94a3b8;letter-spacing:.07em;text-transform:uppercase;margin-bottom:5px}
+.fl{display:block;font-size:10px;font-weight:700;color:#64748b;letter-spacing:.07em;text-transform:uppercase;margin-bottom:5px}
 .fi{width:100%;padding:12px 15px;border:2px solid #e2e8f0;border-radius:12px;font-family:'Poppins',sans-serif;
-  font-size:15px;color:var(--slate);outline:none;background:#f8fafc;transition:border-color .2s}
+  font-size:15px;color:#0f172a;outline:none;background:#f8fafc;transition:border-color .2s}
 [dir="rtl"] .fi{font-family:'Cairo',sans-serif;text-align:right}
 .fi:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(245,158,11,.1)}
 .fi::placeholder{color:#cbd5e1}
 
 .ilist{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:26px}
-.iitem{display:flex;gap:13px;align-items:flex-start;font-size:14px;color:#ffffff;line-height:1.65}
+.iitem{display:flex;gap:13px;align-items:flex-start;font-size:14px;color:#1e293b;line-height:1.65}
 [dir="rtl"] .iitem{flex-direction:row-reverse;text-align:right}
 .iicon{width:32px;height:32px;background:rgba(245,158,11,.12);border-radius:10px;
   display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
 
-.pbar-wrap{background:var(--slate);border:1px solid rgba(255,255,255,.05);border-radius:14px;
-  padding:13px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px}
-.pbar-track{flex:1;height:7px;background:rgba(255,255,255,.08);border-radius:50px;overflow:hidden}
+.pbar-wrap{background:var(--slate);border:1px solid var(--brd);border-radius:14px;
+  padding:13px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+.pbar-track{flex:1;height:7px;background:rgba(15,23,42,.08);border-radius:50px;overflow:hidden}
 .pbar-fill{height:100%;background:linear-gradient(90deg,var(--gold-d),var(--gold));border-radius:50px;
   transition:width .5s cubic-bezier(.4,0,.2,1);min-width:3px}
 .pbar-lbl{font-size:12px;color:var(--muted);white-space:nowrap;font-weight:600;min-width:50px;text-align:right}
 .pdots{display:flex;gap:5px;justify-content:center;margin-bottom:10px}
-.pdot{height:5px;border-radius:50px;background:rgba(255,255,255,.13);transition:all .3s;width:5px}
-.pdot.done{background:rgba(245,158,11,.35)}
+.pdot{height:5px;border-radius:50px;background:rgba(15,23,42,.12);transition:all .3s;width:5px}
+.pdot.done{background:rgba(245,158,11,.45)}
 .pdot.active{background:var(--gold);width:18px}
 
-.qcard{background:var(--card);color:var(--card-t);border-radius:var(--radius);padding:22px;margin-bottom:10px;animation:slin .28s ease}
+.qcard{background:var(--card);color:var(--card-t);border-radius:var(--radius);padding:22px;margin-bottom:10px;animation:slin .28s ease;box-shadow:0 2px 20px rgba(15,23,42,.07);border:1px solid var(--brd)}
 .qmeta{font-size:11px;font-weight:700;color:var(--gold-d);text-transform:uppercase;letter-spacing:.08em;margin-bottom:9px}
-.qtext{font-size:17px;font-weight:500;line-height:1.6;color:var(--slate);margin-bottom:20px}
+.qtext{font-size:17px;font-weight:500;line-height:1.6;color:#0f172a;margin-bottom:20px}
 [dir="rtl"] .qtext{text-align:right;font-family:'Cairo',sans-serif}
 .lkwrap{display:flex;flex-direction:column;gap:7px}
 .lkends{display:flex;justify-content:space-between;font-size:10px;color:#94a3b8;padding:0 2px;margin-bottom:3px}
@@ -110,39 +112,39 @@ body::before{content:'';position:fixed;top:-250px;right:-250px;width:700px;heigh
 .qnav{display:flex;gap:10px;margin-top:4px}
 .qnav .btn{flex:1}
 
-.rhero{background:linear-gradient(145deg,#141e38 0%,#08102a 100%);
-  border:1px solid rgba(245,158,11,.3);border-radius:var(--radius);padding:28px;text-align:center;margin-bottom:12px}
+.rhero{background:linear-gradient(145deg,#fffbeb 0%,#ffffff 100%);
+  border:1px solid rgba(245,158,11,.4);border-radius:var(--radius);padding:28px;text-align:center;margin-bottom:12px;box-shadow:0 4px 24px rgba(245,158,11,.1)}
 .rlbl{display:inline-block;background:var(--gold);color:#000;border-radius:50px;
   padding:5px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
 .rmaj{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,5vw,2.2rem);color:var(--white);margin-bottom:7px}
 .rtag{font-size:13px;color:var(--muted);font-style:italic;margin-bottom:12px}
 .cconf{display:flex;align-items:center;justify-content:center;gap:7px;font-size:13px;color:var(--muted)}
 .cbadge{padding:3px 13px;border-radius:50px;font-size:12px;font-weight:700}
-.ch{background:rgba(16,185,129,.15);color:#10b981}
-.cm{background:rgba(245,158,11,.15);color:var(--gold)}
-.cl{background:rgba(148,163,184,.15);color:var(--muted)}
+.ch{background:rgba(16,185,129,.15);color:#059669}
+.cm{background:rgba(245,158,11,.18);color:var(--gold-d)}
+.cl{background:rgba(100,116,139,.15);color:var(--muted)}
 .srow{margin-bottom:12px}
-.shdr{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:5px;color:var(--muted)}
-.sval{color:var(--gold);font-weight:700}
-.strk{height:9px;background:rgba(255,255,255,.07);border-radius:50px;overflow:hidden}
+.shdr{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:5px;color:#475569}
+.sval{color:var(--gold-d);font-weight:700}
+.strk{height:9px;background:rgba(15,23,42,.08);border-radius:50px;overflow:hidden}
 .sfill{height:100%;border-radius:50px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
 .sba{background:linear-gradient(90deg,#6366f1,#a5b4fc)}
 .sae{background:linear-gradient(90deg,#10b981,#6ee7b7)}
 .radar-wrap{display:flex;justify-content:center;margin:8px 0}
 .radar-wrap svg{width:250px;height:250px}
 .dimg{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:8px;margin-top:10px}
-.dcard{background:var(--slate);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:13px 8px;text-align:center}
-.dscore{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);display:block;line-height:1}
+.dcard{background:var(--slate);border:1px solid var(--brd);border-radius:12px;padding:13px 8px;text-align:center;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+.dscore{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold-d);display:block;line-height:1}
 [dir="rtl"] .dscore{font-family:'Cairo',sans-serif}
-.dname{font-size:9px;color:var(--white);margin-top:5px;text-transform:uppercase;letter-spacing:.04em;line-height:1.3;display:block}
+.dname{font-size:9px;color:#475569;margin-top:5px;text-transform:uppercase;letter-spacing:.04em;line-height:1.3;display:block}
 [dir="rtl"] .dname{font-size:10px;letter-spacing:0;text-transform:none}
-.excard{background:var(--slate);border-left:4px solid var(--gold);
+.excard{background:#fffbeb;border-left:4px solid var(--gold);
   border-radius:0 var(--radius) var(--radius) 0;padding:18px 20px;margin-bottom:12px}
-.excard p{font-size:14px;line-height:1.85;color:#b0c0d4}
+.excard p{font-size:14px;line-height:1.85;color:#475569}
 [dir="rtl"] .excard p{text-align:right}
 .altcard{background:var(--card);color:var(--card-t);border-radius:var(--radius);padding:18px;
-  margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.altinfo p{font-weight:600;color:var(--slate);margin-bottom:2px}
+  margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--brd);box-shadow:0 1px 3px rgba(15,23,42,.04)}
+.altinfo p{font-weight:600;color:#0f172a;margin-bottom:2px}
 .altinfo span{font-size:12px;color:#64748b}
 .altbdg{background:#f0fdf4;color:#16a34a;padding:5px 13px;border-radius:50px;font-size:12px;font-weight:700;white-space:nowrap}
 .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
@@ -197,7 +199,7 @@ const TR = {
     /* ─ Welcome */
     eyebrow: 'Major Discovery Assessment',
     hero_html: 'Find Your<br><em>Right Major</em>',
-    hero_desc: 'This assessment helps you choose between <strong style="color:#f0f4f8">Business Administration</strong> and <strong style="color:#f0f4f8">Applied Economics</strong>. Answer honestly and you will get a personalized recommendation.',
+    hero_desc: 'This assessment helps you choose between <strong style="color:#0f172a">Business Administration</strong> and <strong style="color:#0f172a">Applied Economics</strong>. Answer honestly and you will get a personalized recommendation.',
     stat_q: 'Questions', stat_min: 'Minutes', stat_maj: 'Majors',
     begin: 'Start Assessment →',
 
@@ -212,10 +214,10 @@ const TR = {
     /* ─ Instructions */
     step2: 'Step 2 of 3', instr_title: 'How It Works',
     instr_sub: 'Read this before you start.',
-    i1: 'Answer based on how you <strong style="color:#a0ff7a">really</strong> feel — not what sounds good. There are no right or wrong answers.',
-    i2: 'Use the <strong style="color:#a0ff7a">1–5 scale</strong>: 1 = Strongly Disagree, 5 = Strongly Agree. Use the full range.',
-    i3: 'Go with your <strong style="color:#a0ff7a">first instinct</strong>. The whole test takes about 10 minutes.',
-    i4: 'You will see your <strong style="color:#a0ff7a">recommended major</strong>, a confidence level, and a full profile with explanation.',
+    i1: 'Answer based on how you <strong style="color:#059669">really</strong> feel — not what sounds good. There are no right or wrong answers.',
+    i2: 'Use the <strong style="color:#059669">1–5 scale</strong>: 1 = Strongly Disagree, 5 = Strongly Agree. Use the full range.',
+    i3: 'Go with your <strong style="color:#059669">first instinct</strong>. The whole test takes about 10 minutes.',
+    i4: 'You will see your <strong style="color:#059669">recommended major</strong>, a confidence level, and a full profile with explanation.',
     i5: 'Your answers are saved to help the faculty give you better guidance.',
     ready: "I'm Ready — Let's Go 🚀",
 
@@ -294,7 +296,7 @@ const TR = {
     /* ─ Welcome */
     eyebrow: 'اختبار اكتشاف التخصص',
     hero_html: 'اكتشف<br><em>تخصصك المناسب</em>',
-    hero_desc: 'هذا الاختبار يساعدك على الاختيار بين <strong style="color:#f0f4f8">Business Administration</strong> و<strong style="color:#f0f4f8">Applied Economics</strong>. أجب بصدق وستحصل على توصية شخصية.',
+    hero_desc: 'هذا الاختبار يساعدك على الاختيار بين <strong style="color:#0f172a">Business Administration</strong> و<strong style="color:#0f172a">Applied Economics</strong>. أجب بصدق وستحصل على توصية شخصية.',
     stat_q: 'سؤالاً', stat_min: 'دقيقة', stat_maj: 'تخصصان',
     begin: 'ابدأ الاختبار ←',
 
@@ -309,10 +311,10 @@ const TR = {
     /* ─ Instructions */
     step2: 'الخطوة 2 من 3', instr_title: 'كيف يعمل الاختبار',
     instr_sub: 'اقرأ هذا قبل أن تبدأ.',
-    i1: 'أجب بناءً على ما تشعر به <strong style="color:#f0f4f8">فعلاً</strong> — وليس ما يبدو صحيحاً. لا توجد إجابة صح أو غلط.',
-    i2: 'استخدم <strong style="color:#f0f4f8">المقياس من 1 إلى 5</strong>: 1 = لا أوافق بشدة، 5 = أوافق بشدة.',
-    i3: 'اتبع <strong style="color:#f0f4f8">أول إحساسك</strong>. لا تفكر كثيراً. الاختبار يأخذ حوالي 10 دقائق.',
-    i4: 'ستظهر لك <strong style="color:#f0f4f8">التخصص المقترح</strong> ومستوى الثقة وشرح كامل لنتيجتك.',
+    i1: 'أجب بناءً على ما تشعر به <strong style="color:#0f172a">فعلاً</strong> — وليس ما يبدو صحيحاً. لا توجد إجابة صح أو غلط.',
+    i2: 'استخدم <strong style="color:#0f172a">المقياس من 1 إلى 5</strong>: 1 = لا أوافق بشدة، 5 = أوافق بشدة.',
+    i3: 'اتبع <strong style="color:#0f172a">أول إحساسك</strong>. لا تفكر كثيراً. الاختبار يأخذ حوالي 10 دقائق.',
+    i4: 'ستظهر لك <strong style="color:#0f172a">التخصص المقترح</strong> ومستوى الثقة وشرح كامل لنتيجتك.',
     i5: 'إجاباتك تُحفظ لمساعدة الكلية على تقديم إرشاد أكاديمي أفضل لك.',
     ready: 'أنا مستعد — هيا بنا 🚀',
 
@@ -579,12 +581,12 @@ function mkRadar(ds,col){
   const pt=(r,i)=>{const a=-Math.PI/2+i*2*Math.PI/n;return[cx+r*Math.cos(a),cy+r*Math.sin(a)];};
   let g='',ax='',lb='';
   for(let lv=1;lv<=5;lv++){g+=`<polygon points="${keys.map((_,i)=>pt(R*lv/5,i).join(',')).join(' ')}"
-    fill="none" stroke="rgba(255,255,255,.06)" stroke-width="1"/>`;}
+    fill="none" stroke="rgba(15,23,42,.1)" stroke-width="1"/>`;}
   keys.forEach((_,i)=>{const[x2,y2]=pt(R,i);
-    ax+=`<line x1="${cx}" y1="${cy}" x2="${x2}" y2="${y2}" stroke="rgba(255,255,255,.09)" stroke-width="1"/>`;
+    ax+=`<line x1="${cx}" y1="${cy}" x2="${x2}" y2="${y2}" stroke="rgba(15,23,42,.12)" stroke-width="1"/>`;
     const[lx,ly]=pt(Rl,i);
     lb+=`<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle"
-      font-size="12" font-family="Cairo,Poppins,sans-serif" fill="#f0f4f8" font-weight="600">${t('dim')[keys[i]]}</text>`;});
+      font-size="12" font-family="Cairo,Poppins,sans-serif" fill="#0f172a" font-weight="600">${t('dim')[keys[i]]}</text>`;});
   const dp=keys.map((k,i)=>pt(R*(ds[k]/5),i).join(',')).join(' ');
   const dts=keys.map((k,i)=>{const[px,py]=pt(R*(ds[k]/5),i);
     return`<circle cx="${px}" cy="${py}" r="4.5" fill="${col}" stroke="rgba(0,0,0,.25)" stroke-width="1"/>`;}).join('');
@@ -615,15 +617,15 @@ function renderResults(ds,os,doSubmit){
           <div class="strk"><div class="sfill s${k.toLowerCase()}" style="width:0%" data-w="${v.toFixed(1)}"></div></div>
           </div>`).join('')}
       </div>
-      <div style="background:var(--slate);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);padding:20px;margin-bottom:12px">
-        <span class="slbl" style="color:var(--gold)">${t('profile')}</span>
+      <div style="background:var(--slate);border:1px solid rgba(15,23,42,.08);border-radius:var(--radius);padding:20px;margin-bottom:12px;box-shadow:0 1px 3px rgba(15,23,42,.04)">
+        <span class="slbl" style="color:var(--gold-d)">${t('profile')}</span>
         <div class="radar-wrap">${mkRadar(ds,info.col)}</div>
         <div class="dimg">${Object.entries(ds).map(([d,sc])=>`
           <div class="dcard"><span class="dscore">${sc.toFixed(1)}</span>
             <span class="dname">${t('dim')[d]}</span></div>`).join('')}</div>
       </div>
       <div class="excard">
-        <span class="slbl" style="color:var(--gold)">${t('why')}</span>
+        <span class="slbl" style="color:var(--gold-d)">${t('why')}</span>
         <p style="margin-top:7px">${info.desc}</p>
       </div>
       <div class="card">
