@@ -8,13 +8,14 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#06101e;--panel:#0e1c30;--card:#ffffff;--card-t:#0f172a;
+  --bg:#f1f5f9;--panel:#ffffff;--card:#ffffff;--card-t:#0f172a;
   --teal:#06b6d4;--teal-d:#0891b2;--teal-l:#ecfeff;
-  --muted:#ffffff;--white:#e8f0f8;--success:#10b981;--radius:18px;
+  --muted:#64748b;--white:#0f172a;--success:#10b981;--radius:18px;
+  --brd:rgba(15,23,42,.08);
 }
 body{font-family:'DM Sans',sans-serif;background:var(--bg);min-height:100vh;color:var(--white);overflow-x:hidden}
 body::before{content:'';position:fixed;top:-200px;left:-200px;width:600px;height:600px;border-radius:50%;
-  background:radial-gradient(circle,rgba(6,182,212,.07) 0%,transparent 65%);pointer-events:none}
+  background:radial-gradient(circle,rgba(6,182,212,.1) 0%,transparent 65%);pointer-events:none}
 [dir="rtl"] body{font-family:'Cairo',sans-serif}
 [dir="rtl"] .hero-t,[dir="rtl"] .sh-title,[dir="rtl"] .rspec{font-family:'Cairo',sans-serif}
 [dir="rtl"] .excard{border-left:none;border-right:4px solid var(--teal);border-radius:var(--radius) 0 0 var(--radius)}
@@ -28,10 +29,10 @@ body::before{content:'';position:fixed;top:-200px;left:-200px;width:600px;height
   border:1px solid rgba(6,182,212,.25);border-radius:50px;padding:5px 14px;font-size:11px;
   color:var(--teal);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
 .topbar-right{display:flex;align-items:center;gap:8px}
-.year-tag{font-size:11px;color:var(--white);border:1px solid rgba(255,255,255,.1);padding:5px 14px;border-radius:50px}
-.lang-btn{font-size:12px;font-weight:700;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);
+.year-tag{font-size:11px;color:var(--white);border:1px solid rgba(15,23,42,.12);padding:5px 14px;border-radius:50px}
+.lang-btn{font-size:12px;font-weight:700;background:rgba(15,23,42,.04);border:1px solid rgba(15,23,42,.12);
   color:var(--white);padding:5px 14px;border-radius:50px;cursor:pointer;transition:all .2s;font-family:inherit}
-.lang-btn:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4)}
+.lang-btn:hover{background:rgba(15,23,42,.08);border-color:rgba(15,23,42,.3)}
 
 .screen{display:none;flex-direction:column;flex:1;padding:14px 0 52px;animation:fup .4s ease}
 .screen.active{display:flex}
@@ -40,18 +41,18 @@ body::before{content:'';position:fixed;top:-200px;left:-200px;width:600px;height
 
 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin:24px 0 10px}
 .hero-t{font-family:'Sora',sans-serif;font-size:clamp(2rem,6vw,2.9rem);line-height:1.15;margin-bottom:16px;font-weight:700}
-.hero-t em{color:var(--teal);font-style:normal}
+.hero-t em{color:var(--teal-d);font-style:normal}
 .hero-d{font-size:15px;color:var(--white);line-height:1.75;max-width:540px;margin-bottom:28px}
-.specs{background:var(--panel);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);padding:20px;margin-bottom:24px}
-.spec-row{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--white);padding:6px 0}
-.spec-row:not(:last-child){border-bottom:1px solid rgba(255,255,255,.04)}
-.spec-row strong{color:var(--white)}
+.specs{background:var(--panel);border:1px solid var(--brd);border-radius:var(--radius);padding:20px;margin-bottom:24px;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+.spec-row{display:flex;align-items:center;gap:12px;font-size:14px;color:#334155;padding:6px 0}
+.spec-row:not(:last-child){border-bottom:1px solid rgba(15,23,42,.06)}
+.spec-row strong{color:#0f172a}
 .spec-icon{font-size:18px;width:28px;text-align:center;flex-shrink:0}
 [dir="rtl"] .spec-row{flex-direction:row-reverse}
 .tracks{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:28px}
-.track-pill{background:var(--panel);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:14px;text-align:center}
+.track-pill{background:var(--panel);border:1px solid var(--brd);border-radius:12px;padding:14px;text-align:center;box-shadow:0 1px 3px rgba(15,23,42,.04)}
 .track-pill .tp{font-size:18px;display:block;margin-bottom:4px}
-.track-pill span{font-size:12px;color:var(--white);font-weight:500;line-height:1.3;display:block}
+.track-pill span{font-size:12px;color:#334155;font-weight:500;line-height:1.3;display:block}
 
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 26px;
   border-radius:50px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;
@@ -59,15 +60,15 @@ body::before{content:'';position:fixed;top:-200px;left:-200px;width:600px;height
 [dir="rtl"] .btn{font-family:'Cairo',sans-serif}
 .btn-t{background:var(--teal);color:#000}
 .btn-t:hover{background:var(--teal-d);transform:translateY(-2px);box-shadow:0 8px 24px rgba(6,182,212,.3)}
-.btn-o{background:transparent;color:var(--muted);border:1.5px solid rgba(255,255,255,.12)}
-.btn-o:hover{border-color:rgba(255,255,255,.35);color:var(--white)}
+.btn-o{background:transparent;color:var(--muted);border:1.5px solid rgba(15,23,42,.15)}
+.btn-o:hover{border-color:rgba(15,23,42,.3);color:var(--white)}
 .btn:disabled{opacity:.35;cursor:not-allowed;transform:none!important;box-shadow:none!important}
 .btn-w{width:100%}
 
 .card{background:var(--card);color:var(--card-t);border-radius:var(--radius);padding:24px;margin-bottom:12px;
-  box-shadow:0 2px 20px rgba(0,0,0,.2)}
+  box-shadow:0 2px 20px rgba(15,23,42,.07);border:1px solid var(--brd)}
 .fg{margin-bottom:15px}
-.fl{display:block;font-size:10px;font-weight:700;color:#94a3b8;letter-spacing:.07em;text-transform:uppercase;margin-bottom:5px}
+.fl{display:block;font-size:10px;font-weight:700;color:#64748b;letter-spacing:.07em;text-transform:uppercase;margin-bottom:5px}
 .fi{width:100%;padding:12px 15px;border:2px solid #e2e8f0;border-radius:12px;font-family:'DM Sans',sans-serif;
   font-size:15px;color:var(--card-t);outline:none;background:#f8fafc;transition:border-color .2s}
 [dir="rtl"] .fi{font-family:'Cairo',sans-serif;text-align:right}
@@ -75,22 +76,22 @@ body::before{content:'';position:fixed;top:-200px;left:-200px;width:600px;height
 .fi::placeholder{color:#cbd5e1}
 
 .ilist{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:26px}
-.iitem{display:flex;gap:13px;align-items:flex-start;font-size:14px;color:#ffffff;line-height:1.65}
+.iitem{display:flex;gap:13px;align-items:flex-start;font-size:14px;color:#1e293b;line-height:1.65}
 .iicon{width:32px;height:32px;background:rgba(6,182,212,.12);border-radius:10px;
   display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
 
-.pbar-wrap{background:var(--panel);border:1px solid rgba(255,255,255,.05);border-radius:14px;
-  padding:13px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px}
-.pbar-track{flex:1;height:7px;background:rgba(255,255,255,.08);border-radius:50px;overflow:hidden}
+.pbar-wrap{background:var(--panel);border:1px solid var(--brd);border-radius:14px;
+  padding:13px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+.pbar-track{flex:1;height:7px;background:rgba(15,23,42,.08);border-radius:50px;overflow:hidden}
 .pbar-fill{height:100%;background:linear-gradient(90deg,var(--teal-d),var(--teal));border-radius:50px;
   transition:width .5s cubic-bezier(.4,0,.2,1);min-width:3px}
 .pbar-lbl{font-size:12px;color:var(--muted);white-space:nowrap;font-weight:600;min-width:50px;text-align:right}
 .pdots{display:flex;gap:5px;justify-content:center;margin-bottom:10px}
-.pdot{height:5px;border-radius:50px;background:rgba(255,255,255,.13);transition:all .3s;width:5px}
-.pdot.done{background:rgba(6,182,212,.35)}
+.pdot{height:5px;border-radius:50px;background:rgba(15,23,42,.12);transition:all .3s;width:5px}
+.pdot.done{background:rgba(6,182,212,.45)}
 .pdot.active{background:var(--teal);width:18px}
 
-.qcard{background:var(--card);color:var(--card-t);border-radius:var(--radius);padding:22px;margin-bottom:10px;animation:slin .28s ease}
+.qcard{background:var(--card);color:var(--card-t);border-radius:var(--radius);padding:22px;margin-bottom:10px;animation:slin .28s ease;box-shadow:0 2px 20px rgba(15,23,42,.07);border:1px solid var(--brd)}
 .qmeta{font-size:11px;font-weight:700;color:var(--teal-d);text-transform:uppercase;letter-spacing:.08em;margin-bottom:9px}
 .qtext{font-size:17px;font-weight:500;line-height:1.6;color:#0f172a;margin-bottom:20px}
 [dir="rtl"] .qtext{text-align:right;font-family:'Cairo',sans-serif}
@@ -110,21 +111,21 @@ body::before{content:'';position:fixed;top:-200px;left:-200px;width:600px;height
 .qnav{display:flex;gap:10px;margin-top:4px}
 .qnav .btn{flex:1}
 
-.rhero{background:linear-gradient(145deg,#0e1c30 0%,#06101e 100%);
-  border:1px solid rgba(6,182,212,.3);border-radius:var(--radius);padding:28px;text-align:center;margin-bottom:12px}
+.rhero{background:linear-gradient(145deg,#ecfeff 0%,#ffffff 100%);
+  border:1px solid rgba(6,182,212,.4);border-radius:var(--radius);padding:28px;text-align:center;margin-bottom:12px;box-shadow:0 4px 24px rgba(6,182,212,.1)}
 .rlbl{display:inline-block;background:var(--teal);color:#000;border-radius:50px;
   padding:5px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
 .rspec{font-family:'Sora',sans-serif;font-size:clamp(1.4rem,5vw,2rem);color:var(--white);margin-bottom:7px;line-height:1.2}
 .rtag{font-size:13px;color:var(--muted);font-style:italic;margin-bottom:12px}
 .cconf{display:flex;align-items:center;justify-content:center;gap:7px;font-size:13px;color:var(--muted)}
 .cbadge{padding:3px 13px;border-radius:50px;font-size:12px;font-weight:700}
-.ch{background:rgba(16,185,129,.15);color:#10b981}
-.cm{background:rgba(6,182,212,.15);color:var(--teal)}
-.cl{background:rgba(107,128,152,.15);color:var(--muted)}
+.ch{background:rgba(16,185,129,.15);color:#059669}
+.cm{background:rgba(6,182,212,.18);color:var(--teal-d)}
+.cl{background:rgba(100,116,139,.15);color:var(--muted)}
 .srow{margin-bottom:11px}
-.shdr{display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:5px;color:var(--muted)}
-.sval{color:var(--white);font-weight:700}
-.strk{height:9px;background:rgba(255,255,255,.07);border-radius:50px;overflow:hidden}
+.shdr{display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:5px;color:#475569}
+.sval{color:#0f172a;font-weight:700}
+.strk{height:9px;background:rgba(15,23,42,.08);border-radius:50px;overflow:hidden}
 .sfill{height:100%;border-radius:50px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
 .s0{background:linear-gradient(90deg,#ec4899,#f9a8d4)}
 .s1{background:linear-gradient(90deg,#6366f1,#a5b4fc)}
@@ -133,14 +134,14 @@ body::before{content:'';position:fixed;top:-200px;left:-200px;width:600px;height
 .radar-wrap{display:flex;justify-content:center;margin:8px 0}
 .radar-wrap svg{width:250px;height:250px}
 .dimg{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:8px;margin-top:10px}
-.dcard{background:var(--panel);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:13px 8px;text-align:center}
-.dscore{font-family:'Sora',sans-serif;font-size:20px;color:var(--teal);display:block;line-height:1}
+.dcard{background:var(--panel);border:1px solid var(--brd);border-radius:12px;padding:13px 8px;text-align:center;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+.dscore{font-family:'Sora',sans-serif;font-size:20px;color:var(--teal-d);display:block;line-height:1}
 [dir="rtl"] .dscore{font-family:'Cairo',sans-serif}
-.dname{font-size:9px;color:var(--white);margin-top:5px;text-transform:uppercase;letter-spacing:.04em;line-height:1.3;display:block}
+.dname{font-size:9px;color:#475569;margin-top:5px;text-transform:uppercase;letter-spacing:.04em;line-height:1.3;display:block}
 [dir="rtl"] .dname{font-size:10px;letter-spacing:0;text-transform:none}
-.excard{background:var(--panel);border-left:4px solid var(--teal);
+.excard{background:#ecfeff;border-left:4px solid var(--teal);
   border-radius:0 var(--radius) var(--radius) 0;padding:18px 20px;margin-bottom:12px}
-.excard p{font-size:14px;line-height:1.85;color:#ffffff}
+.excard p{font-size:14px;line-height:1.85;color:#334155}
 .alts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:12px}
 .alt-item{background:var(--card);color:var(--card-t);border-radius:14px;padding:14px;
   display:flex;align-items:center;justify-content:space-between;gap:8px}
@@ -209,10 +210,10 @@ const TR = {
     fill_all: 'Please fill in all three fields before continuing.',
     step2: 'Step 2 of 3', instr_title: 'How It Works',
     instr_sub: 'Read this before you start.',
-    i1: 'Answer based on how you <strong style="color:#a0ff7a">really</strong> feel — not what sounds impressive. There are no right or wrong answers.',
-    i2: 'Use the <strong style="color:#a0ff7a">1–5 scale</strong>: 1 = Strongly Disagree, 5 = Strongly Agree.',
-    i3: 'Go with your <strong style="color:#a0ff7a">first instinct</strong>. The test takes about 10 minutes.',
-    i4: 'You will see your <strong style="color:#a0ff7a">top specialization</strong> with confidence level, plus all 4 tracks ranked.',
+    i1: 'Answer based on how you <strong style="color:#059669">really</strong> feel — not what sounds impressive. There are no right or wrong answers.',
+    i2: 'Use the <strong style="color:#059669">1–5 scale</strong>: 1 = Strongly Disagree, 5 = Strongly Agree.',
+    i3: 'Go with your <strong style="color:#059669">first instinct</strong>. The test takes about 10 minutes.',
+    i4: 'You will see your <strong style="color:#059669">top specialization</strong> with confidence level, plus all 4 tracks ranked.',
     i5: 'Your answers are saved to help the faculty give you better guidance.',
     ready: "I'm Ready — Let's Go 🚀",
     q_label: 'Question', q_of: 'of',
@@ -231,7 +232,7 @@ const TR = {
     error: '⚠️ Could not save. Your result is still shown above.',
     print: '🖨️ Save / Print as PDF', retake: '↩ Retake',
     footer: 'Faculty of Business Administration & Applied Economics · Badya University',
-    dim: { CR: 'Creative', LS: 'Leadership', FQ: 'Finance', TA: 'Technology', SC: 'Social' },
+    dim: { CR: 'Creative', LS: 'Leadership', FQ: 'Quantitative', TA: 'Technology', SC: 'Social' },
     specs:[
       {icon:'❓', text:'25 questions — takes about 10 minutes'},
       {icon:'🧪', text:'Based on 5 personality dimensions'},
@@ -305,10 +306,10 @@ const TR = {
     fill_all: 'يرجى ملء الحقول الثلاثة قبل المتابعة.',
     step2: 'الخطوة 2 من 3', instr_title: 'كيف يعمل الاختبار',
     instr_sub: 'اقرأ هذا قبل أن تبدأ.',
-    i1: 'أجب بناءً على ما تشعر به <strong style="color:#e8f0f8">فعلاً</strong> — وليس ما يبدو مثيراً للإعجاب. لا توجد إجابة صح أو غلط.',
-    i2: 'استخدم <strong style="color:#e8f0f8">المقياس من 1 إلى 5</strong>: 1 = لا أوافق بشدة، 5 = أوافق بشدة.',
-    i3: 'اتبع <strong style="color:#e8f0f8">أول إحساسك</strong>. الاختبار يأخذ حوالي 10 دقائق.',
-    i4: 'ستظهر لك <strong style="color:#e8f0f8">أعلى تخصص توافقاً</strong> ومستوى الثقة وترتيب كل التخصصات الأربعة.',
+    i1: 'أجب بناءً على ما تشعر به <strong style="color:#0f172a">فعلاً</strong> — وليس ما يبدو مثيراً للإعجاب. لا توجد إجابة صح أو غلط.',
+    i2: 'استخدم <strong style="color:#0f172a">المقياس من 1 إلى 5</strong>: 1 = لا أوافق بشدة، 5 = أوافق بشدة.',
+    i3: 'اتبع <strong style="color:#0f172a">أول إحساسك</strong>. الاختبار يأخذ حوالي 10 دقائق.',
+    i4: 'ستظهر لك <strong style="color:#0f172a">أعلى تخصص توافقاً</strong> ومستوى الثقة وترتيب كل التخصصات الأربعة.',
     i5: 'إجاباتك تُحفظ لمساعدة الكلية على تقديم إرشاد أكاديمي أفضل لك.',
     ready: 'أنا مستعد — هيا بنا 🚀',
     q_label: 'السؤال', q_of: 'من',
@@ -327,7 +328,7 @@ const TR = {
     error: '⚠️ لم يتم الحفظ. نتيجتك تظهر أعلاه.',
     print: '🖨️ حفظ / طباعة كـ PDF', retake: '↩ إعادة الاختبار',
     footer: 'Faculty of Business Administration & Applied Economics · Badya University',
-    dim: { CR: 'إبداعي', LS: 'قيادي', FQ: 'مالي', TA: 'تقني', SC: 'اجتماعي' },
+    dim: { CR: 'إبداعي', LS: 'قيادي', FQ: 'كمي', TA: 'تقني', SC: 'اجتماعي' },
     /* Specialization names stay English; taglines and desc translated */
     specializations: [
       { key: 'MKT', name: 'Marketing', tagline: 'أبدع · تواصل · أثّر', col: '#ec4899',
@@ -575,12 +576,12 @@ function mkRadar(ds,col){
   const pt=(r,i)=>{const a=-Math.PI/2+i*2*Math.PI/n;return[cx+r*Math.cos(a),cy+r*Math.sin(a)];};
   let g='',ax='',lb='';
   for(let lv=1;lv<=5;lv++){g+=`<polygon points="${keys.map((_,i)=>pt(R*lv/5,i).join(',')).join(' ')}"
-    fill="none" stroke="rgba(255,255,255,.06)" stroke-width="1"/>`;}
+    fill="none" stroke="rgba(15,23,42,.1)" stroke-width="1"/>`;}
   keys.forEach((_,i)=>{const[x2,y2]=pt(R,i);
-    ax+=`<line x1="${cx}" y1="${cy}" x2="${x2}" y2="${y2}" stroke="rgba(255,255,255,.09)" stroke-width="1"/>`;
+    ax+=`<line x1="${cx}" y1="${cy}" x2="${x2}" y2="${y2}" stroke="rgba(15,23,42,.12)" stroke-width="1"/>`;
     const[lx,ly]=pt(Rl,i);
     lb+=`<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle"
-      font-size="12" font-family="Cairo,DM Sans,sans-serif" fill="#f0f4f8" font-weight="600">${t('dim')[keys[i]]}</text>`;});
+      font-size="12" font-family="Cairo,DM Sans,sans-serif" fill="#0f172a" font-weight="600">${t('dim')[keys[i]]}</text>`;});
   const dp=keys.map((k,i)=>pt(R*(ds[k]/5),i).join(',')).join(' ');
   const dts=keys.map((k,i)=>{const[px,py]=pt(R*(ds[k]/5),i);
     return`<circle cx="${px}" cy="${py}" r="4.5" fill="${col}" stroke="rgba(0,0,0,.25)" stroke-width="1"/>`;}).join('');
@@ -603,33 +604,33 @@ function renderResults(ds,os,doSubmit){
         <p class="rtag">${topS.tagline}</p>
         <div class="cconf"><span>${t('confidence')}</span><span class="cbadge ${cc}">${cl}</span></div>
       </div>
-      <div style="background:var(--panel);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);padding:20px;margin-bottom:12px">
-        <span class="slbl" style="color:var(--teal)">${t('ranked_title')}</span>
+      <div style="background:var(--panel);border:1px solid rgba(15,23,42,.08);border-radius:var(--radius);padding:20px;margin-bottom:12px;box-shadow:0 1px 3px rgba(15,23,42,.04)">
+        <span class="slbl" style="color:var(--teal-d)">${t('ranked_title')}</span>
         ${sorted.map(([k,v],idx)=>{const s=specs.find(x=>x.key===k);return`
           <div class="srow"><div class="shdr"><span>${s.name}</span><span class="sval">${v.toFixed(1)}%</span></div>
           <div class="strk"><div class="sfill s${idx}" style="width:0%" data-w="${v.toFixed(1)}"></div></div></div>`;}).join('')}
       </div>
-      <div style="background:var(--panel);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);padding:20px;margin-bottom:12px">
-        <span class="slbl" style="color:var(--teal)">${t('profile')}</span>
+      <div style="background:var(--panel);border:1px solid rgba(15,23,42,.08);border-radius:var(--radius);padding:20px;margin-bottom:12px;box-shadow:0 1px 3px rgba(15,23,42,.04)">
+        <span class="slbl" style="color:var(--teal-d)">${t('profile')}</span>
         <div class="radar-wrap">${mkRadar(ds,topS.col)}</div>
         <div class="dimg">${Object.entries(ds).map(([d,sc])=>`
           <div class="dcard"><span class="dscore">${sc.toFixed(1)}</span>
             <span class="dname">${t('dim')[d]}</span></div>`).join('')}</div>
       </div>
       <div class="excard">
-        <span class="slbl" style="color:var(--teal)">${t('why')}</span>
+        <span class="slbl" style="color:var(--teal-d)">${t('why')}</span>
         <p style="margin-top:7px">${topS.desc}</p>
       </div>
-      <div style="background:var(--panel);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);padding:18px;margin-bottom:12px">
-        <span class="slbl" style="color:var(--teal)">${t('courses_lbl')}</span>
+      <div style="background:var(--panel);border:1px solid rgba(15,23,42,.08);border-radius:var(--radius);padding:18px;margin-bottom:12px;box-shadow:0 1px 3px rgba(15,23,42,.04)">
+        <span class="slbl" style="color:var(--teal-d)">${t('courses_lbl')}</span>
         <div class="tags">${topS.courses.map(c=>`<span class="tag">${c}</span>`).join('')}</div>
       </div>
-      <div style="background:var(--panel);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);padding:18px;margin-bottom:12px">
-        <span class="slbl" style="color:var(--teal)">${t('careers_lbl')}</span>
+      <div style="background:var(--panel);border:1px solid rgba(15,23,42,.08);border-radius:var(--radius);padding:18px;margin-bottom:12px;box-shadow:0 1px 3px rgba(15,23,42,.04)">
+        <span class="slbl" style="color:var(--teal-d)">${t('careers_lbl')}</span>
         <div class="tags">${topS.careers.map(c=>`<span class="tag">${c}</span>`).join('')}</div>
       </div>
       <div style="margin-bottom:12px">
-        <span class="slbl" style="color:var(--teal)">${t('alt_lbl')}</span>
+        <span class="slbl" style="color:var(--teal-d)">${t('alt_lbl')}</span>
         <div class="alts-grid">
           ${sorted.slice(1,3).map(([k,v],i)=>{const s=specs.find(x=>x.key===k);
             return`<div class="alt-item"><div class="ai"><p>${s.name}</p><span>${v.toFixed(1)}%</span></div>
