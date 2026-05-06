@@ -150,6 +150,25 @@ body::before{content:'';position:fixed;top:-200px;left:-200px;width:600px;height
 .alt-rank{background:#f1f5f9;color:#64748b;padding:3px 10px;border-radius:50px;font-size:11px;font-weight:700;white-space:nowrap}
 .alt-rank.r2{background:#eff6ff;color:#3b82f6}
 .alt-rank.r3{background:#f0fdf4;color:#16a34a}
+
+/* ── Registration CTA card (post-result) ─────────────────────────── */
+.regcard{background:linear-gradient(145deg,#ecfeff 0%,#f0fdfa 60%,#ffffff 100%);
+  border:2px solid var(--teal);border-radius:var(--radius);padding:26px 22px;margin-bottom:14px;
+  text-align:center;box-shadow:0 8px 30px rgba(6,182,212,.22);position:relative;overflow:hidden}
+.regcard::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;
+  background:linear-gradient(90deg,var(--teal-d),var(--teal),var(--teal-d))}
+.reglbl{display:inline-block;background:#0f172a;color:var(--teal);border-radius:50px;
+  padding:6px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+[dir="rtl"] .reglbl{letter-spacing:0;font-size:11px;text-transform:none}
+.regtitle{font-family:'Sora',sans-serif;font-size:1.5rem;color:#0f172a;margin-bottom:8px;line-height:1.25;font-weight:700}
+[dir="rtl"] .regtitle{font-family:'Cairo',sans-serif}
+.regsub{font-size:14px;color:#475569;line-height:1.7;margin-bottom:18px;max-width:480px;margin-left:auto;margin-right:auto}
+[dir="rtl"] .regsub{text-align:center}
+.btn-reg{background:#0f172a;color:var(--teal);font-size:15px;font-weight:700;
+  padding:15px 24px;width:100%;border:2px solid var(--teal-d);box-shadow:0 4px 16px rgba(15,23,42,.18);text-decoration:none}
+.btn-reg:hover{background:#1e293b;color:#fff;border-color:var(--teal);transform:translateY(-2px);box-shadow:0 10px 26px rgba(15,23,42,.32)}
+.regnote{font-size:11px;color:var(--muted);margin-top:11px;font-style:italic}
+[dir="rtl"] .regnote{font-style:normal}
 .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
 .tag{background:#f1f5f9;color:#334155;padding:5px 13px;border-radius:50px;font-size:12px;font-weight:500}
 .slbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal-d);margin-bottom:7px;display:block}
@@ -186,6 +205,9 @@ body::before{content:'';position:fixed;top:-200px;left:-200px;width:600px;height
 /* Google Sheets URL — paste your Apps Script Web App URL here */
 const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzQG7KCCxZpXFQAULEoIgrUZdNGFxKHQ9KnrQKkaDxauSYrgmWWOgcEc-tffYmxB_Eb/exec';
 /* Apps Script code is in the separate apps-script.gs file */
+
+/* Official Specialization Registration Form (Microsoft Forms) — Year 2 */
+const FORM_URL = 'https://forms.office.com/r/tGZrRTBvaX';
 
 let LANG = 'en', curScreen = 's-welcome', lastScores = null, submitStatus = null;
 
@@ -231,6 +253,12 @@ const TR = {
     saved: '✅ Results saved. Good luck!',
     error: '⚠️ Could not save. Your result is still shown above.',
     print: '🖨️ Save / Print as PDF', retake: '↩ Retake',
+    /* ─ Registration CTA */
+    reg_lbl: 'Final Step · Make It Official',
+    reg_title: 'Register Your Specialization Choice',
+    reg_sub: 'You\'ve seen your assessment result — now submit the official registration form so the Faculty\'s Academic Affairs office can finalize your enrollment in your chosen specialization.',
+    reg_btn: '📝 Open Specialization Registration Form →',
+    reg_note: 'Opens in a new tab — your result will stay open here.',
     footer: 'Faculty of Business Administration & Applied Economics · Badya University',
     dim: { CR: 'Creative', LS: 'Leadership', FQ: 'Quantitative', TA: 'Technology', SC: 'Social' },
     specs:[
@@ -327,6 +355,12 @@ const TR = {
     saved: '✅ تم حفظ النتائج. بالتوفيق!',
     error: '⚠️ لم يتم الحفظ. نتيجتك تظهر أعلاه.',
     print: '🖨️ حفظ / طباعة كـ PDF', retake: '↩ إعادة الاختبار',
+    /* ─ Registration CTA */
+    reg_lbl: 'الخطوة الأخيرة · سجّل اختيارك رسمياً',
+    reg_title: 'سجّل التخصص اللي اخترته',
+    reg_sub: 'شُفت نتيجة اختبارك — دلوقتي ابعت النموذج الرسمي عشان إدارة الشؤون الأكاديمية بالكلية تعتمد قيدك في التخصص اللي اخترته.',
+    reg_btn: '📝 افتح نموذج تسجيل التخصص ←',
+    reg_note: 'هيفتح في نافذة جديدة — نتيجتك مش هتقفل.',
     footer: 'Faculty of Business Administration & Applied Economics · Badya University',
     dim: { CR: 'إبداعي', LS: 'قيادي', FQ: 'كمي', TA: 'تقني', SC: 'اجتماعي' },
     /* Specialization names stay English; taglines and desc translated */
@@ -603,6 +637,13 @@ function renderResults(ds,os,doSubmit){
         <h2 class="rspec">${topS.name}</h2>
         <p class="rtag">${topS.tagline}</p>
         <div class="cconf"><span>${t('confidence')}</span><span class="cbadge ${cc}">${cl}</span></div>
+      </div>
+      <div class="regcard">
+        <span class="reglbl">${t('reg_lbl')}</span>
+        <h3 class="regtitle">${t('reg_title')}</h3>
+        <p class="regsub">${t('reg_sub')}</p>
+        <a class="btn btn-reg" href="${FORM_URL}" target="_blank" rel="noopener">${t('reg_btn')}</a>
+        <p class="regnote">${t('reg_note')}</p>
       </div>
       <div style="background:var(--panel);border:1px solid rgba(15,23,42,.08);border-radius:var(--radius);padding:20px;margin-bottom:12px;box-shadow:0 1px 3px rgba(15,23,42,.04)">
         <span class="slbl" style="color:var(--teal-d)">${t('ranked_title')}</span>
