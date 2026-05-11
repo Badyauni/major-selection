@@ -147,25 +147,6 @@ body::before{content:'';position:fixed;top:-250px;right:-250px;width:700px;heigh
 .altinfo p{font-weight:600;color:#0f172a;margin-bottom:2px}
 .altinfo span{font-size:12px;color:#64748b}
 .altbdg{background:#f0fdf4;color:#16a34a;padding:5px 13px;border-radius:50px;font-size:12px;font-weight:700;white-space:nowrap}
-
-/* ── Registration CTA card (post-result) ─────────────────────────── */
-.regcard{background:linear-gradient(145deg,#fef3c7 0%,#fff7ed 60%,#ffffff 100%);
-  border:2px solid var(--gold);border-radius:var(--radius);padding:26px 22px;margin-bottom:14px;
-  text-align:center;box-shadow:0 8px 30px rgba(245,158,11,.22);position:relative;overflow:hidden}
-.regcard::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;
-  background:linear-gradient(90deg,var(--gold-d),var(--gold),var(--gold-d))}
-.reglbl{display:inline-block;background:#0f172a;color:var(--gold);border-radius:50px;
-  padding:6px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
-[dir="rtl"] .reglbl{letter-spacing:0;font-size:11px;text-transform:none}
-.regtitle{font-family:'Playfair Display',serif;font-size:1.5rem;color:#0f172a;margin-bottom:8px;line-height:1.25}
-[dir="rtl"] .regtitle{font-family:'Cairo',sans-serif}
-.regsub{font-size:14px;color:#475569;line-height:1.7;margin-bottom:18px;max-width:480px;margin-left:auto;margin-right:auto}
-[dir="rtl"] .regsub{text-align:center}
-.btn-reg{background:#0f172a;color:var(--gold);font-size:15px;font-weight:700;
-  padding:15px 24px;width:100%;border:2px solid var(--gold-d);box-shadow:0 4px 16px rgba(15,23,42,.18);text-decoration:none}
-.btn-reg:hover{background:#1e293b;color:#fff;border-color:var(--gold);transform:translateY(-2px);box-shadow:0 10px 26px rgba(15,23,42,.32)}
-.regnote{font-size:11px;color:var(--muted);margin-top:11px;font-style:italic}
-[dir="rtl"] .regnote{font-style:normal}
 .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
 .tag{background:#f1f5f9;color:#334155;padding:5px 13px;border-radius:50px;font-size:12px;font-weight:500}
 .slbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold-d);margin-bottom:7px;display:block}
@@ -204,9 +185,6 @@ body::before{content:'';position:fixed;top:-250px;right:-250px;width:700px;heigh
 /* Google Sheets URL — paste your Apps Script Web App URL here */
 const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzQG7KCCxZpXFQAULEoIgrUZdNGFxKHQ9KnrQKkaDxauSYrgmWWOgcEc-tffYmxB_Eb/exec';
 /* Apps Script code is in the separate apps-script.gs file */
-
-/* Official Major Registration Form (Microsoft Forms) — Year 1 */
-const FORM_URL = 'https://forms.office.com/r/qakvEPYtqP';
 
 /* ── i18n ─────────────────────────────────────────────────────── */
 let LANG = 'en', curScreen = 's-welcome', lastScores = null, submitStatus = null;
@@ -260,12 +238,6 @@ const TR = {
     saved: '✅ Results saved successfully. Good luck!',
     error: '⚠️ Could not save. Your result is still shown above.',
     print: '🖨️ Save / Print as PDF', retake: '↩ Retake',
-    /* ─ Registration CTA */
-    reg_lbl: 'Final Step · Make It Official',
-    reg_title: 'Register Your Major Choice',
-    reg_sub: 'You\'ve seen your assessment result — now submit the official registration form so the Faculty\'s Academic Affairs office can finalize your enrollment in your chosen major.',
-    reg_btn: '📝 Open Major Registration Form →',
-    reg_note: 'Opens in a new tab — your result will stay open here.',
     footer: 'Faculty of Business Administration & Applied Economics · Badya University',
 
     /* ─ Dimension labels */
@@ -288,30 +260,29 @@ const TR = {
     /* ─ 25 Questions */
     questions: [
       "I enjoy working with numbers, graphs, and formulas.",
-      "I find it rewarding to help a team work together better.",
+      "I enjoy helping others work better together.",
       "I often wonder how government decisions affect people's daily lives.",
       "I would love to build my own business one day.",
       "I am curious about why some countries are richer than others.",
       "I prefer using data and facts to make decisions, not just guessing.",
-      "I would rather do deep research alone than manage a team.",
+      "I prefer deep focus on one task over managing group efforts.",
       "When I read the news, I pay attention to economic stats and policy changes.",
       "I enjoy finding unsolved problems and imagining how to fix them.",
-      "Understanding why economic problems happen interests me more than finding business solutions.",
-      "I really enjoy working with charts, data, and numbers.",
-      "I believe good leadership and managing people are the most important business skills.",
-      "I find economics and policy more interesting than sales or marketing tactics.",
+      "I enjoy analyzing the causes of problems more than dealing with practical solutions.",
+      "I can handle differences between people in a way that helps work continue smoothly.",
+      "I prefer analyzing broad trends and understanding their causes more than influencing people's choices.",
       "Successful entrepreneurs inspire me more than academic researchers.",
-      "I enjoy reading studies about society, economics, or politics.",
+      "I enjoy reading about issues that help explain changes and trends in the world.",
       "I can spend a long time on a math or data problem without getting bored.",
-      "I enjoy organizing tasks, assigning work, and keeping a team on track.",
-      "I think understanding economic trends is important before making any big decision.",
+      "I find myself interested in organizing work steps and monitoring progress.",
+      "I tend to study surrounding factors before making an important decision.",
       "I prefer to fully understand a problem before acting, rather than acting fast and learning later.",
-      "Topics like poverty, trade, and economic development really interest me.",
+      "I am interested in topics related to improving quality of life and reducing inequality among people.",
       "When things are uncertain, I gather data to measure the risk before deciding.",
       "I naturally enjoy motivating others and helping them grow.",
-      "I would find it meaningful to advise governments or organizations on economic policy.",
-      "I usually see every situation as a chance to create something new or valuable.",
-      "I am more interested in economic theory than in day-to-day business tasks."
+      "I enjoy tasks that require analysis, planning, and making decisions.",
+      "I tend to notice unused potential in things or everyday situations.",
+      "I enjoy analytical and idea-based topics more than detail-oriented routine work."
     ]
   },
 
@@ -363,12 +334,6 @@ const TR = {
     saved: '✅ تم حفظ النتائج. بالتوفيق!',
     error: '⚠️ لم يتم الحفظ. نتيجتك تظهر أعلاه.',
     print: '🖨️ حفظ / طباعة كـ PDF', retake: '↩ إعادة الاختبار',
-    /* ─ Registration CTA */
-    reg_lbl: 'الخطوة الأخيرة · سجّل اختيارك رسمياً',
-    reg_title: 'سجّل التخصص اللي اخترته',
-    reg_sub: 'شُفت نتيجة اختبارك — دلوقتي ابعت النموذج الرسمي عشان إدارة الشؤون الأكاديمية بالكلية تعتمد قيدك في التخصص اللي اخترته.',
-    reg_btn: '📝 افتح نموذج تسجيل التخصص ←',
-    reg_note: 'هيفتح في نافذة جديدة — نتيجتك مش هتقفل.',
     footer: 'Faculty of Business Administration & Applied Economics · Badya University',
 
     /* ─ Dimension labels */
@@ -391,30 +356,29 @@ const TR = {
     /* ─ 25 Questions — Arabic, simplified */
     questions: [
       "أستمتع بالعمل مع الأرقام والرسوم البيانية والمعادلات.",
-      "أجد متعة في مساعدة الفريق على العمل معاً بشكل أفضل.",
+      "استمتع بدعم الاخرين للوصول الى أفضل أداء جماعى ممكن",
       "كثيراً ما أتساءل كيف تؤثر قرارات الحكومة على حياة الناس اليومية.",
       "أحلم ببناء مشروعي التجاري الخاص يوماً ما.",
       "أتساءل لماذا بعض الدول أغنى اقتصادياً من غيرها.",
       "أفضل الاعتماد على البيانات والحقائق في اتخاذ القرارات.",
-      "أفضل العمل بمفردي في بحث عميق على إدارة فريق.",
+      "أميل الى التركيز المتعمق فى مهمة محددة أكثر من تنسيق جهود مجموعة من الأفراد",
       "عند قراءة الأخبار، أنتبه للأرقام الاقتصادية والسياسات.",
       "أستمتع بالتفكير في مشكلات لم تُحل بعد وتخيل طرق لحلها.",
-      "فهم سبب المشكلات الاقتصادية يهمني أكثر من إيجاد حلول تجارية لها.",
-      "أستمتع حقاً بالعمل مع البيانات والرسوم البيانية والأرقام.",
-      "أعتقد أن القيادة الجيدة وإدارة الناس هي أهم مهارات الأعمال.",
-      "أجد الاقتصاد والسياسات أكثر إثارة من المبيعات والتسويق.",
+      "استمتع بتفسير العوامل المؤدية الى المشكلات أكثر من التركيز فى الجوانب التطبيقية المرتبطة بها",
+      "أستطيع التعامل مع الاختلافات بين الأفراد بطريقة تساعد على استمرار العمل بسلاسة",
+      "أميل الى تحليل الظواهر العامة وفهم أسبابها  أكثر من الاهتمام بكيفية التأثير فى اختيارات الأفراد",
       "يُلهمني رواد الأعمال الناجحون أكثر من الباحثين الأكاديميين.",
-      "أستمتع بقراءة الدراسات عن المجتمع والاقتصاد والسياسة.",
+      "أحب القراءة فى القضايا التى تساعد على تفسير ما يحدث فى العالم من تغيرات واتجاهات",
       "أستطيع قضاء وقت طويل في حل مسألة رياضية أو تحليل بيانات دون ملل.",
-      "أستمتع بتنظيم المهام وتوزيع العمل وإبقاء الفريق على المسار.",
-      "أعتقد أن فهم الاتجاهات الاقتصادية مهم قبل اتخاذ أي قرار كبير.",
+      "أجد نفسى مهتما بتنظيم خطوات العمل ومراقبة تقدمها",
+      "أميل الى دراسة العوامل المحيطة قبل الوصول الى قرار مصيرى",
       "أفضل أن أفهم المشكلة جيداً قبل التصرف، بدلاً من التصرف بسرعة والتعلم لاحقاً.",
-      "موضوعات مثل الفقر والتجارة والتنمية الاقتصادية تثير اهتمامي.",
+      "تثير اهتمامى الموضوعات المرتبطة بتحسين جودة الحياة ومعالجة التفاوت بين الأفراد",
       "عند مواجهة الغموض، أجمع البيانات وأقيس المخاطر قبل القرار.",
       "أستمتع بطبيعتي بتحفيز الآخرين ومساعدتهم على التطور.",
-      "سيكون ذا معنى أن أعمل مستشاراً للحكومات أو المنظمات في السياسة الاقتصادية.",
-      "عادةً أرى في كل موقف فرصة لخلق شيء جديد أو ذي قيمة.",
-      "أهتم بالنظرية الاقتصادية أكثر من المهام اليومية في الأعمال."
+      "أميل الى المهام التى تجمع بين التحليل والتخطيط واتخاذ القرار",
+      "أميل الى ملاحظة الامكانات غير المستغلة فى الأشياء أو المواقف اليومية",
+      "تستهوينى الموضوعات التحليلية والمفاهيمية أكثر من الأعمال التى تعتمد على المتابعة المستمرة للتفاصيل"
     ]
   }
 };
@@ -449,7 +413,7 @@ function renderWelcome(){
     <h1 class="hero-t">${t('hero_html')}</h1>
     <p class="hero-d">${t('hero_desc')}</p>
     <div class="stats">
-      <div class="stat"><b>25</b><small>${t('stat_q')}</small></div>
+      <div class="stat"><b>24</b><small>${t('stat_q')}</small></div>
       <div class="stat"><b>~10</b><small>${t('stat_min')}</small></div>
       <div class="stat"><b>2</b><small>${t('stat_maj')}</small></div>
     </div>
@@ -525,12 +489,12 @@ const Qs=[
   {id:1,d:'QA',r:false},{id:2,d:'PO',r:false},{id:3,d:'PM',r:false},
   {id:4,d:'EC',r:false},{id:5,d:'SS',r:false},{id:6,d:'QA',r:false},
   {id:7,d:'PO',r:true}, {id:8,d:'PM',r:false},{id:9,d:'EC',r:false},
-  {id:10,d:'SS',r:false},{id:11,d:'QA',r:false},{id:12,d:'PO',r:false},
-  {id:13,d:'PM',r:false},{id:14,d:'EC',r:false},{id:15,d:'SS',r:false},
-  {id:16,d:'QA',r:false},{id:17,d:'PO',r:false},{id:18,d:'PM',r:false},
-  {id:19,d:'EC',r:true}, {id:20,d:'SS',r:false},{id:21,d:'QA',r:false},
-  {id:22,d:'PO',r:false},{id:23,d:'PM',r:false},{id:24,d:'EC',r:false},
-  {id:25,d:'SS',r:false}
+  {id:10,d:'SS',r:false},{id:11,d:'PO',r:false},
+  {id:12,d:'PM',r:false},{id:13,d:'EC',r:false},{id:14,d:'SS',r:false},
+  {id:15,d:'QA',r:false},{id:16,d:'PO',r:false},{id:17,d:'PM',r:false},
+  {id:18,d:'EC',r:true}, {id:19,d:'SS',r:false},{id:20,d:'QA',r:false},
+  {id:21,d:'PO',r:false},{id:22,d:'PM',r:false},{id:23,d:'EC',r:false},
+  {id:24,d:'SS',r:false}
 ];
 const WTS={BA:{QA:.15,PM:.05,PO:.35,EC:.35,SS:.10},AE:{QA:.30,PM:.35,PO:.05,EC:.05,SS:.25}};
 const PG=5, TOTPG=Math.ceil(Qs.length/PG);
@@ -642,13 +606,6 @@ function renderResults(ds,os,doSubmit){
         <h2 class="rmaj">${info.name}</h2>
         <p class="rtag">${info.tagline}</p>
         <div class="cconf"><span>${t('confidence')}</span><span class="cbadge ${cc}">${cl}</span></div>
-      </div>
-      <div class="regcard">
-        <span class="reglbl">${t('reg_lbl')}</span>
-        <h3 class="regtitle">${t('reg_title')}</h3>
-        <p class="regsub">${t('reg_sub')}</p>
-        <a class="btn btn-reg" href="${FORM_URL}" target="_blank" rel="noopener">${t('reg_btn')}</a>
-        <p class="regnote">${t('reg_note')}</p>
       </div>
       <div class="card">
         <span class="slbl">${t('score_cmp')}</span>
